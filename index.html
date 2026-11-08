@@ -166,7 +166,6 @@
       word-break: break-all;
     }
 
-    /* Embedded App View */
     #app-container {
       display: none;
       position: fixed;
@@ -195,10 +194,10 @@
 </head>
 <body>
 
-  <!-- VIEW 1: UNLOCK SCREEN -->
+  <!-- UNLOCK SCREEN -->
   <div id="view-unlock" class="container view active">
     <h1>MathKit Unlock</h1>
-    <p class="subtitle">Gib deinen Zugangsschlüssel ein oder erstelle einen neuen 24h-Schlüssel.</p>
+    <p class="subtitle">Gib deinen Zugangsschlüssel ein oder hole dir einen neuen 24h-Schlüssel.</p>
     
     <div class="input-group">
       <label for="key-input">Zugangsschlüssel</label>
@@ -211,36 +210,28 @@
     <div id="unlock-message" class="message"></div>
   </div>
 
-  <!-- VIEW 2: GET KEY SCREEN (Nach Linkvertise-Weiterleitung) -->
+  <!-- GET KEY SCREEN -->
   <div id="view-getkey" class="container view">
     <h1>Dein Schlüssel ist bereit</h1>
-    <p class="subtitle">Dieser Schlüssel bleibt genau 24 Stunden lang auf diesem Gerät gültig.</p>
+    <p class="subtitle">Kopiere deinen Schlüssel. Er bleibt 24 Stunden lang gültig.</p>
 
     <div id="generated-key-display" class="key-box">Erzeuge Schlüssel...</div>
 
-    <button class="btn btn-primary" onclick="copyAndUseKey()">Kopieren & Freischalten</button>
+    <button class="btn btn-primary" onclick="copyAndRedirect()">Key kopieren & Zum Login</button>
   </div>
 
-  <!-- EMBEDDED MATHKIT APP (Full Screen Container) -->
+  <!-- EMBEDDED MATHKIT APP -->
   <div id="app-container">
     <iframe src="https://mathkit.org" id="app-frame" title="MathKit App"></iframe>
   </div>
 
   <script>
-    // ==========================================
-    // KONFIGURATION
-    // ==========================================
-    // TRAGE HIER DEINEN LINKVERTISE-LINK EIN:
     const LINKVERTISE_URL = "https://link-hub.net/10624438/ADobqisFUWgc"; 
 
-    // Schlüssel-Validierungsparameter
     const KEY_PREFIX = "MK-";
     const SECRET_SALT = "MATHKIT_SALT_2026";
-    const VALIDITY_DURATION_MS = 24 * 60 * 60 * 1000; // 24 Stunden
 
-    // Initialisierung beim Laden
     window.addEventListener('DOMContentLoaded', () => {
-      checkSavedSession();
       routeView();
     });
 
@@ -261,14 +252,9 @@
 
     function openLinkvertise(e) {
       e.preventDefault();
-      if (LINKVERTISE_URL === "DEIN_LINKVERTISE_LINK_HIER" || !LINKVERTISE_URL) {
-        alert("Fehler: Es wurde noch kein Linkvertise-Link im Code hinterlegt.");
-        return;
-      }
       window.location.href = LINKVERTISE_URL;
     }
 
-    // Hash-Funktion zur Verifizierung
     function simpleHash(str) {
       let hash = 0;
       for (let i = 0; i < str.length; i++) {
@@ -279,7 +265,7 @@
     }
 
     function generateKeyForTimestamp(timestamp) {
-      const timeBlock = Math.floor(timestamp / (1000 * 60 * 60)); // Stündlicher Block
+      const timeBlock = Math.floor(timestamp / (1000 * 60 * 60));
       const signature = simpleHash(timeBlock + SECRET_SALT);
       return `${KEY_PREFIX}${timeBlock.toString(36).toUpperCase()}-${signature}`;
     }
@@ -295,8 +281,8 @@
       const cleanKey = key.trim();
       const now = Date.now();
       
-      // Prüfe die letzten 25 Stunden auf Gültigkeit
-      for (let i = 0; i <= 25; i++) {
+      // Prüfe Schlüssel-Gültigkeit der letzten 24 Stunden
+      for (let i = 0; i <= 24; i++) {
         const testTime = now - (i * 60 * 60 * 1000);
         if (generateKeyForTimestamp(testTime) === cleanKey) {
           return true;
@@ -314,43 +300,34 @@
       messageField.innerText = '';
 
       if (validateKey(key)) {
-        const expiry = Date.now() + VALIDITY_DURATION_MS;
-        localStorage.setItem('mathkit_session_expiry', expiry.toString());
         messageField.className = 'message success';
         messageField.innerText = 'Schlüssel akzeptiert! Weiterleitung...';
         
         setTimeout(() => {
           showApp();
-        }, 800);
+        }, 600);
       } else {
         messageField.className = 'message error';
         messageField.innerText = 'Ungültiger oder abgelaufener Schlüssel!';
       }
     }
 
-    function copyAndUseKey() {
+    function copyAndRedirect() {
       const keyText = document.getElementById('generated-key-display').innerText;
-      navigator.clipboard.writeText(keyText).then(() => {
-        // Automatisch entsperren
-        const expiry = Date.now() + VALIDITY_DURATION_MS;
-        localStorage.setItem('mathkit_session_expiry', expiry.toString());
-        showApp();
-      }).catch(() => {
-        // Fallback
-        const expiry = Date.now() + VALIDITY_DURATION_MS;
-        localStorage.setItem('mathkit_session_expiry', expiry.toString());
-        showApp();
-      });
-    }
+      
+      const fallbackCopy = () => {
+        window.location.href = window.location.origin + window.location.pathname;
+      };
 
-    function checkSavedSession() {
-      const expiry = localStorage.getItem('mathkit_session_expiry');
-      if (expiry) {
-        if (Date.now() < parseInt(expiry, 10)) {
-          showApp();
-        } else {
-          localStorage.removeItem('mathkit_session_expiry');
-        }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(keyText).then(() => {
+          alert("Schlüssel kopiert! Du wirst jetzt zur Eingabe weitergeleitet.");
+          fallbackCopy();
+        }).catch(() => {
+          fallbackCopy();
+        });
+      } else {
+        fallbackCopy();
       }
     }
 
