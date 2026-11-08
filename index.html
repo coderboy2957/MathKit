@@ -158,10 +158,10 @@
       padding: 1rem;
       border-radius: 12px;
       font-family: monospace;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--accent-color);
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       margin: 1.5rem 0;
       word-break: break-all;
     }
@@ -197,11 +197,11 @@
   <!-- UNLOCK SCREEN -->
   <div id="view-unlock" class="container view active">
     <h1>MathKit Unlock</h1>
-    <p class="subtitle">Gib deinen Zugangsschlüssel ein oder hole dir einen neuen 24h-Schlüssel.</p>
+    <p class="subtitle">Gib deinen gerätegebundenen Schlüssel ein oder hole dir einen neuen.</p>
     
     <div class="input-group">
       <label for="key-input">Zugangsschlüssel</label>
-      <input type="text" id="key-input" placeholder="MK-XXXXXXXXXXXX" autocomplete="off">
+      <input type="text" id="key-input" placeholder="MK-..." autocomplete="off">
     </div>
 
     <button class="btn btn-primary" onclick="unlockWithKey()">Unlock</button>
@@ -213,7 +213,7 @@
   <!-- GET KEY SCREEN -->
   <div id="view-getkey" class="container view">
     <h1>Dein Schlüssel ist bereit</h1>
-    <p class="subtitle">Kopiere deinen Schlüssel. Er bleibt 24 Stunden lang gültig.</p>
+    <p class="subtitle">Dieser Schlüssel ist exakt an dieses Gerät gebunden und 24 Stunden gültig.</p>
 
     <div id="generated-key-display" class="key-box">Erzeuge Schlüssel...</div>
 
@@ -227,9 +227,8 @@
 
   <script>
     const LINKVERTISE_URL = "https://link-hub.net/10624438/ADobqisFUWgc"; 
-
     const KEY_PREFIX = "MK-";
-    const SECRET_SALT = "MATHKIT_SALT_2026";
+    const SECRET_SALT = "MATHKIT_DEVICE_LOCK_2026";
 
     window.addEventListener('DOMContentLoaded', () => {
       routeView();
@@ -255,6 +254,22 @@
       window.location.href = LINKVERTISE_URL;
     }
 
+    // Erstellt einen einfachen Geräte-Fingerabdruck aus Browser-Eigenschaften
+    function getDeviceFingerprint() {
+      const nav = window.navigator;
+      const screen = window.screen;
+      const rawString = [
+        nav.userAgent,
+        nav.language,
+        screen.width,
+        screen.height,
+        screen.colorDepth,
+        new Date().getTimezoneOffset()
+      ].join('|');
+      
+      return simpleHash(rawString);
+    }
+
     function simpleHash(str) {
       let hash = 0;
       for (let i = 0; i < str.length; i++) {
@@ -264,15 +279,16 @@
       return Math.abs(hash).toString(36).toUpperCase();
     }
 
-    function generateKeyForTimestamp(timestamp) {
+    function generateKeyForTimestamp(timestamp, deviceHash) {
       const timeBlock = Math.floor(timestamp / (1000 * 60 * 60));
-      const signature = simpleHash(timeBlock + SECRET_SALT);
-      return `${KEY_PREFIX}${timeBlock.toString(36).toUpperCase()}-${signature}`;
+      const signature = simpleHash(timeBlock + deviceHash + SECRET_SALT);
+      return `${KEY_PREFIX}${timeBlock.toString(36).toUpperCase()}-${deviceHash}-${signature}`;
     }
 
     function generateAndDisplayKey() {
       const now = Date.now();
-      const currentKey = generateKeyForTimestamp(now);
+      const deviceHash = getDeviceFingerprint();
+      const currentKey = generateKeyForTimestamp(now, deviceHash);
       document.getElementById('generated-key-display').innerText = currentKey;
     }
 
@@ -280,11 +296,12 @@
       if (!key || typeof key !== 'string') return false;
       const cleanKey = key.trim();
       const now = Date.now();
+      const deviceHash = getDeviceFingerprint();
       
-      // Prüfe Schlüssel-Gültigkeit der letzten 24 Stunden
+      // Prüfe die letzten 24 Stunden mit dem aktuellen Geräte-Hash
       for (let i = 0; i <= 24; i++) {
         const testTime = now - (i * 60 * 60 * 1000);
-        if (generateKeyForTimestamp(testTime) === cleanKey) {
+        if (generateKeyForTimestamp(testTime, deviceHash) === cleanKey) {
           return true;
         }
       }
@@ -308,7 +325,7 @@
         }, 600);
       } else {
         messageField.className = 'message error';
-        messageField.innerText = 'Ungültiger oder abgelaufener Schlüssel!';
+        messageField.innerText = 'Ungültiger Key oder falsches Gerät!';
       }
     }
 
@@ -321,7 +338,7 @@
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(keyText).then(() => {
-          alert("Schlüssel kopiert! Du wirst jetzt zur Eingabe weitergeleitet.");
+          alert("Schlüssel kopiert! (Er funktioniert nur auf diesem Gerät).");
           fallbackCopy();
         }).catch(() => {
           fallbackCopy();
