@@ -5,9 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculator - Wikipedia</title>
   
-  <!-- GOOGLE ADSENSE GLOBAL SCRIPT & META-TAG -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4532900123492437" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-4532900123492437">
+  <!-- HILLTOPADS META-TAG -->
+  <meta name="ae77880e3698a927ab890f53597c22c2d3ab1935" content="ae77880e3698a927ab890f53597c22c2d3ab1935" />
 
   <style>
     body {
@@ -179,6 +178,7 @@
       word-break: break-all;
       text-align: center;
       background: #fff;
+      display: none; /* Erst nach Werbung sichtbar */
     }
 
     .ad-slot {
@@ -225,25 +225,11 @@
 </head>
 <body>
 
-  <!-- VIEW 1: TASCHENRECHNER + WERBUNG -->
+  <!-- VIEW 1: TASCHENRECHNER -->
   <div id="view-calculator" class="view active" style="position: relative; height: auto; justify-content: flex-start;">
     <div class="wiki-header">
       <h1 class="wiki-title">Calculator</h1>
       <p class="wiki-subtitle">From Wikipedia, the free encyclopedia</p>
-    </div>
-
-    <!-- Echter Google AdSense Werbe-Slot -->
-    <div class="ad-slot">
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4532900123492437" crossorigin="anonymous"></script>
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-4532900123492437"
-           data-ad-slot="auto"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
     </div>
 
     <div class="calc-container">
@@ -281,22 +267,22 @@
       <input type="text" id="key-input" placeholder="MK-..." autocomplete="off">
 
       <button class="btn" onclick="unlockWithKey()">Unlock</button>
-      <button class="btn" onclick="showView('view-getkey'); generateAndDisplayKey();">Get Key</button>
+      <button class="btn" onclick="startAdAndGetKey()">Get Key</button>
 
       <div id="unlock-message" class="message"></div>
     </div>
     <button class="exit-btn" onclick="returnToCalculator()">Zurück</button>
   </div>
 
-  <!-- VIEW 3: GET KEY SCREEN -->
+  <!-- VIEW 3: GET KEY SCREEN (WERBUNG WIRD GELADEN, DANN KEY) -->
   <div id="view-getkey" class="view">
     <div class="portal-box">
       <h1>Key Generator</h1>
-      <p>Ihr gerätegebundener Schlüssel:</p>
+      <p id="ad-status-text">Lade Anzeige & generiere Schlüssel...</p>
 
       <div id="generated-key-display" class="key-box">Lade...</div>
 
-      <button class="btn" onclick="copyAndUseKeyDirectly()">Key kopieren & Starten</button>
+      <button id="btn-copy-key" class="btn" style="display:none;" onclick="copyAndUseKeyDirectly()">Key kopieren & Starten</button>
     </div>
     <button class="exit-btn" onclick="returnToCalculator()">Zurück</button>
   </div>
@@ -332,7 +318,6 @@
     }
 
     function calcCompute() {
-      // GEHEIMER AUSLÖSER GEÄNDERT AUF 1234
       if (calcInput === "1234") {
         calcClear();
         showView('view-unlock');
@@ -362,6 +347,22 @@
     function returnToCalculator() {
       calcClear();
       showView('view-calculator');
+    }
+
+    // Funktion: Zeigt erst die Anzeige-Wartephase, danach wird der Key freigeschaltet
+    function startAdAndGetKey() {
+      showView('view-getkey');
+      document.getElementById('ad-status-text').innerText = "Anzeige wird geladen, bitte warten...";
+      document.getElementById('generated-key-display').style.display = 'none';
+      document.getElementById('btn-copy-key').style.display = 'none';
+
+      // Simuliert die Werbe-Einblendzeit (z.B. 3 Sekunden, während HilltopAds lädt)
+      setTimeout(() => {
+        generateAndDisplayKey();
+        document.getElementById('ad-status-text').innerText = "Ihr gerätegebundener Schlüssel:";
+        document.getElementById('generated-key-display').style.display = 'block';
+        document.getElementById('btn-copy-key').style.display = 'block';
+      }, 3000);
     }
 
     function getDeviceFingerprint() {
