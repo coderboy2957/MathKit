@@ -3,20 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculator</title>
+  <title>Calculator - Wikipedia</title>
   <style>
-    /* Grundlegendes Schlichtes Schwarz-Weiß Design */
+    /* Klassisches Wikipedia- / Alt-Look Design */
     body {
       background: #ffffff;
       color: #000000;
-      font-family: monospace, sans-serif;
+      font-family: sans-serif;
       margin: 0;
-      padding: 0;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    /* Wikipedia-artiger Header */
+    .wiki-header {
+      width: 100%;
+      max-width: 400px;
+      border-bottom: 1px solid #a2a9b1;
+      padding-bottom: 10px;
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
+    .wiki-title {
+      font-family: "Linux Libertine", Georgia, Times, serif;
+      font-size: 1.8rem;
+      font-weight: normal;
+      margin: 0 0 5px 0;
+      color: #000;
+    }
+
+    .wiki-subtitle {
+      font-size: 0.8rem;
+      color: #54595d;
+      margin: 0;
     }
 
     .view {
@@ -38,92 +63,104 @@
 
     /* Taschenrechner Styling (Simpel, Schwarz-Weiß) */
     .calc-container {
-      border: 2px solid #000;
-      padding: 20px;
+      border: 1px solid #a2a9b1;
+      padding: 15px;
       width: 260px;
-      background: #fff;
+      background: #f8f9fa;
     }
 
     .calc-screen {
       width: 100%;
-      height: 40px;
+      height: 35px;
       background: #fff;
-      border: 2px solid #000;
-      font-size: 1.2rem;
+      border: 1px solid #a2a9b1;
+      font-size: 1.1rem;
       text-align: right;
-      padding: 5px 10px;
+      padding: 5px 8px;
       box-sizing: border-box;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       font-family: monospace;
     }
 
     .calc-keys {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 5px;
+      gap: 4px;
     }
 
     .calc-btn {
-      padding: 15px;
+      padding: 12px;
       background: #fff;
-      border: 1px solid #000;
-      font-size: 1rem;
+      border: 1px solid #a2a9b1;
+      font-size: 0.95rem;
       cursor: pointer;
       font-family: monospace;
     }
 
     .calc-btn:active {
-      background: #000;
-      color: #fff;
+      background: #eaecf0;
     }
 
-    /* Portal Container (Simpel & Klassisch) */
+    /* Portal Container */
     .portal-box {
-      border: 2px solid #000;
-      padding: 30px;
+      border: 1px solid #a2a9b1;
+      padding: 25px;
       width: 320px;
       text-align: left;
+      background: #f8f9fa;
     }
 
     h1 {
-      font-size: 1.2rem;
+      font-family: "Linux Libertine", Georgia, Times, serif;
+      font-size: 1.3rem;
       margin-top: 0;
       margin-bottom: 10px;
+      font-weight: normal;
+      border-bottom: 1px solid #a2a9b1;
+      padding-bottom: 5px;
     }
 
     p {
       font-size: 0.85rem;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       line-height: 1.4;
+      color: #202122;
+    }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
     }
 
     input[type="text"] {
       width: 100%;
-      padding: 8px;
-      border: 1px solid #000;
+      padding: 6px 8px;
+      border: 1px solid #a2a9b1;
       font-family: monospace;
       box-sizing: border-box;
       margin-bottom: 15px;
+      background: #fff;
     }
 
     .btn {
       display: block;
       width: 100%;
-      padding: 10px;
-      background: #fff;
-      border: 1px solid #000;
+      padding: 8px;
+      background: #f8f9fa;
+      border: 1px solid #a2a9b1;
       text-align: center;
       text-decoration: none;
-      color: #000;
-      font-weight: bold;
+      color: #202122;
+      font-size: 0.85rem;
       cursor: pointer;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       box-sizing: border-box;
     }
 
     .btn:hover {
-      background: #000;
-      color: #fff;
+      background: #eaecf0;
     }
 
     .message {
@@ -133,13 +170,14 @@
     }
 
     .key-box {
-      border: 1px dashed #000;
-      padding: 10px;
+      border: 1px dashed #a2a9b1;
+      padding: 8px;
       font-family: monospace;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       margin-bottom: 15px;
       word-break: break-all;
       text-align: center;
+      background: #fff;
     }
 
     /* Not-Zurück-Button (Unten Rechts) */
@@ -147,17 +185,16 @@
       position: fixed;
       bottom: 15px;
       right: 15px;
-      background: #fff;
-      border: 1px solid #000;
+      background: #f8f9fa;
+      border: 1px solid #a2a9b1;
       padding: 5px 10px;
       font-size: 0.75rem;
       cursor: pointer;
       z-index: 10000;
-      font-family: monospace;
+      font-family: sans-serif;
     }
     .exit-btn:hover {
-      background: #000;
-      color: #fff;
+      background: #eaecf0;
     }
 
     #app-container {
@@ -180,8 +217,13 @@
 </head>
 <body>
 
-  <!-- VIEW 1: TARNUNG - SCHLICHTER TASCHENRECHNER -->
-  <div id="view-calculator" class="view active">
+  <!-- VIEW 1: TARNUNG - WIKIPEDIA-STYLE TASCHENRECHNER -->
+  <div id="view-calculator" class="view active" style="position: relative; height: auto; justify-content: flex-start;">
+    <div class="wiki-header">
+      <h1 class="wiki-title">Calculator</h1>
+      <p class="wiki-subtitle">From Wikipedia, the free encyclopedia</p>
+    </div>
+
     <div class="calc-container">
       <div id="calc-screen" class="calc-screen">0</div>
       <div class="calc-keys">
@@ -210,8 +252,8 @@
   <!-- VIEW 2: UNLOCK SCREEN -->
   <div id="view-unlock" class="view">
     <div class="portal-box">
-      <h1>Access</h1>
-      <p>Key eingeben:</p>
+      <h1>Access Control</h1>
+      <p>Bitte geben Sie den gültigen Zugangsschlüssel ein:</p>
       
       <label for="key-input">Key:</label>
       <input type="text" id="key-input" placeholder="MK-..." autocomplete="off">
@@ -228,7 +270,7 @@
   <div id="view-getkey" class="view">
     <div class="portal-box">
       <h1>Key Generator</h1>
-      <p>Dein gerätegebundener Key:</p>
+      <p>Ihr gerätegebundener Schlüssel:</p>
 
       <div id="generated-key-display" class="key-box">Lade...</div>
 
@@ -240,7 +282,7 @@
   <!-- EMBEDDED MATHKIT APP -->
   <div id="app-container">
     <iframe src="https://mathkit.org" id="app-frame" title="MathKit App"></iframe>
-    <button class="exit-btn" onclick="returnToCalculator()">Schließen / Zurück</button>
+    <button class="exit-btn" onclick="returnToCalculator()">Schließen</button>
   </div>
 
   <script>
@@ -248,7 +290,6 @@
     const KEY_PREFIX = "MK-";
     const SECRET_SALT = "MATHKIT_DEVICE_LOCK_2026";
 
-    // Taschenrechner Logik
     let calcInput = "0";
 
     function updateCalcScreen() {
@@ -278,7 +319,6 @@
       }
 
       try {
-        // Sichere Auswertung für den simplen Taschenrechner
         let result = Function('"use strict";return (' + calcInput + ')')();
         calcInput = String(result);
       } catch (e) {
@@ -287,7 +327,6 @@
       updateCalcScreen();
     }
 
-    // Portal Navigation & Logik
     window.addEventListener('DOMContentLoaded', () => {
       routeView();
     });
@@ -298,7 +337,6 @@
         showView('view-getkey');
         generateAndDisplayKey();
       }
-      // Startet ansonsten standardmäßig beim Taschenrechner (view-calculator)
     }
 
     function showView(viewId) {
@@ -313,7 +351,6 @@
     }
 
     function returnToCalculator() {
-      // URL-Parameter ?action=getkey entfernen, falls vorhanden
       window.history.replaceState({}, document.title, window.location.pathname);
       calcClear();
       showView('view-calculator');
