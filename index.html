@@ -3,167 +3,161 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MathKit - Access Portal</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Calculator</title>
   <style>
-    :root {
-      --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      --card-bg: rgba(255, 255, 255, 0.75);
-      --card-border: rgba(255, 255, 255, 0.6);
-      --text-color: #2d3748;
-      --text-muted: #718096;
-      --accent-color: #4f46e5;
-      --accent-hover: #4338ca;
-      --success-color: #10b981;
-      --error-color: #ef4444;
-      --shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-      --radius: 20px;
-    }
-
-    * {
-      box-sizing: border-box;
+    /* Grundlegendes Schlichtes Schwarz-Weiß Design */
+    body {
+      background: #ffffff;
+      color: #000000;
+      font-family: monospace, sans-serif;
       margin: 0;
       padding: 0;
-      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    body {
-      background: var(--bg-gradient);
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: var(--text-color);
-      overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    .container {
-      width: 90%;
-      max-width: 440px;
-      padding: 2.5rem;
-      background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      text-align: center;
-      transition: all 0.3s ease;
+    .view {
+      display: none;
+      width: 100%;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: #ffffff;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
-    h1 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: #1a202c;
+    .view.active {
+      display: flex;
     }
 
-    p.subtitle {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-      line-height: 1.5;
+    /* Taschenrechner Styling (Simpel, Schwarz-Weiß) */
+    .calc-container {
+      border: 2px solid #000;
+      padding: 20px;
+      width: 260px;
+      background: #fff;
     }
 
-    .input-group {
-      margin-bottom: 1.25rem;
+    .calc-screen {
+      width: 100%;
+      height: 40px;
+      background: #fff;
+      border: 2px solid #000;
+      font-size: 1.2rem;
+      text-align: right;
+      padding: 5px 10px;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+      font-family: monospace;
+    }
+
+    .calc-keys {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+    }
+
+    .calc-btn {
+      padding: 15px;
+      background: #fff;
+      border: 1px solid #000;
+      font-size: 1rem;
+      cursor: pointer;
+      font-family: monospace;
+    }
+
+    .calc-btn:active {
+      background: #000;
+      color: #fff;
+    }
+
+    /* Portal Container (Simpel & Klassisch) */
+    .portal-box {
+      border: 2px solid #000;
+      padding: 30px;
+      width: 320px;
       text-align: left;
     }
 
-    label {
-      display: block;
+    h1 {
+      font-size: 1.2rem;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    p {
       font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.4;
     }
 
     input[type="text"] {
       width: 100%;
-      padding: 0.85rem 1rem;
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      background: rgba(255, 255, 255, 0.9);
-      font-size: 1rem;
-      color: var(--text-color);
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    input[type="text"]:focus {
-      border-color: var(--accent-color);
-      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+      padding: 8px;
+      border: 1px solid #000;
+      font-family: monospace;
+      box-sizing: border-box;
+      margin-bottom: 15px;
     }
 
     .btn {
+      display: block;
       width: 100%;
-      padding: 0.9rem;
-      border: none;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
+      padding: 10px;
+      background: #fff;
+      border: 1px solid #000;
+      text-align: center;
       text-decoration: none;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 10px;
+      box-sizing: border-box;
     }
 
-    .btn-primary {
-      background: var(--accent-color);
-      color: white;
-      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-hover);
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.8);
-      color: var(--text-color);
-      border: 1px solid #e2e8f0;
-      margin-top: 0.75rem;
-    }
-
-    .btn-secondary:hover {
-      background: #ffffff;
-      border-color: #cbd5e1;
+    .btn:hover {
+      background: #000;
+      color: #fff;
     }
 
     .message {
-      margin-top: 1rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      min-height: 1.25rem;
-    }
-
-    .message.error {
-      color: var(--error-color);
-    }
-
-    .message.success {
-      color: var(--success-color);
+      font-size: 0.8rem;
+      margin-top: 10px;
+      min-height: 1rem;
     }
 
     .key-box {
-      background: #ffffff;
-      border: 1px dashed var(--accent-color);
-      padding: 1rem;
-      border-radius: 12px;
+      border: 1px dashed #000;
+      padding: 10px;
       font-family: monospace;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--accent-color);
-      letter-spacing: 0.5px;
-      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
       word-break: break-all;
+      text-align: center;
+    }
+
+    /* Not-Zurück-Button (Unten Rechts) */
+    .exit-btn {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      background: #fff;
+      border: 1px solid #000;
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      z-index: 10000;
+      font-family: monospace;
+    }
+    .exit-btn:hover {
+      background: #000;
+      color: #fff;
     }
 
     #app-container {
@@ -182,47 +176,71 @@
       height: 100%;
       border: none;
     }
-
-    .view {
-      display: none;
-    }
-
-    .view.active {
-      display: block;
-    }
   </style>
 </head>
 <body>
 
-  <!-- UNLOCK SCREEN -->
-  <div id="view-unlock" class="container view active">
-    <h1>MathKit Unlock</h1>
-    <p class="subtitle">Gib deinen gerätegebundenen Schlüssel ein oder hole dir einen neuen.</p>
-    
-    <div class="input-group">
-      <label for="key-input">Zugangsschlüssel</label>
-      <input type="text" id="key-input" placeholder="MK-..." autocomplete="off">
+  <!-- VIEW 1: TARNUNG - SCHLICHTER TASCHENRECHNER -->
+  <div id="view-calculator" class="view active">
+    <div class="calc-container">
+      <div id="calc-screen" class="calc-screen">0</div>
+      <div class="calc-keys">
+        <button class="calc-btn" onclick="calcClear()">C</button>
+        <button class="calc-btn" onclick="calcAppend('/')">/</button>
+        <button class="calc-btn" onclick="calcAppend('*')">*</button>
+        <button class="calc-btn" onclick="calcAppend('-')">-</button>
+        <button class="calc-btn" onclick="calcAppend('7')">7</button>
+        <button class="calc-btn" onclick="calcAppend('8')">8</button>
+        <button class="calc-btn" onclick="calcAppend('9')">9</button>
+        <button class="calc-btn" onclick="calcAppend('+')">+</button>
+        <button class="calc-btn" onclick="calcAppend('4')">4</button>
+        <button class="calc-btn" onclick="calcAppend('5')">5</button>
+        <button class="calc-btn" onclick="calcAppend('6')">6</button>
+        <button class="calc-btn" onclick="calcCompute()">=</button>
+        <button class="calc-btn" onclick="calcAppend('1')">1</button>
+        <button class="calc-btn" onclick="calcAppend('2')">2</button>
+        <button class="calc-btn" onclick="calcAppend('3')">3</button>
+        <button class="calc-btn" style="visibility:hidden;"></button>
+        <button class="calc-btn" style="grid-column: span 2;" onclick="calcAppend('0')">0</button>
+        <button class="calc-btn" onclick="calcAppend('.')">.</button>
+      </div>
     </div>
-
-    <button class="btn btn-primary" onclick="unlockWithKey()">Unlock</button>
-    <a href="#" id="btn-get-key" class="btn btn-secondary" onclick="openLinkvertise(event)">Get Key</a>
-
-    <div id="unlock-message" class="message"></div>
   </div>
 
-  <!-- GET KEY SCREEN -->
-  <div id="view-getkey" class="container view">
-    <h1>Dein Schlüssel ist bereit</h1>
-    <p class="subtitle">Dieser Schlüssel ist exakt an dieses Gerät gebunden und 24 Stunden gültig.</p>
+  <!-- VIEW 2: UNLOCK SCREEN -->
+  <div id="view-unlock" class="view">
+    <div class="portal-box">
+      <h1>Access</h1>
+      <p>Key eingeben:</p>
+      
+      <label for="key-input">Key:</label>
+      <input type="text" id="key-input" placeholder="MK-..." autocomplete="off">
 
-    <div id="generated-key-display" class="key-box">Erzeuge Schlüssel...</div>
+      <button class="btn" onclick="unlockWithKey()">Unlock</button>
+      <button class="btn" onclick="openLinkvertise(event)">Get Key</button>
 
-    <button class="btn btn-primary" onclick="copyAndRedirect()">Key kopieren & Zum Login</button>
+      <div id="unlock-message" class="message"></div>
+    </div>
+    <button class="exit-btn" onclick="returnToCalculator()">Zurück</button>
+  </div>
+
+  <!-- VIEW 3: GET KEY SCREEN -->
+  <div id="view-getkey" class="view">
+    <div class="portal-box">
+      <h1>Key Generator</h1>
+      <p>Dein gerätegebundener Key:</p>
+
+      <div id="generated-key-display" class="key-box">Lade...</div>
+
+      <button class="btn" onclick="copyAndRedirect()">Key kopieren & Weiter</button>
+    </div>
+    <button class="exit-btn" onclick="returnToCalculator()">Zurück</button>
   </div>
 
   <!-- EMBEDDED MATHKIT APP -->
   <div id="app-container">
     <iframe src="https://mathkit.org" id="app-frame" title="MathKit App"></iframe>
+    <button class="exit-btn" onclick="returnToCalculator()">Schließen / Zurück</button>
   </div>
 
   <script>
@@ -230,6 +248,46 @@
     const KEY_PREFIX = "MK-";
     const SECRET_SALT = "MATHKIT_DEVICE_LOCK_2026";
 
+    // Taschenrechner Logik
+    let calcInput = "0";
+
+    function updateCalcScreen() {
+      document.getElementById('calc-screen').innerText = calcInput;
+    }
+
+    function calcAppend(val) {
+      if (calcInput === "0" && val !== '.') {
+        calcInput = val;
+      } else {
+        calcInput += val;
+      }
+      updateCalcScreen();
+    }
+
+    function calcClear() {
+      calcInput = "0";
+      updateCalcScreen();
+    }
+
+    function calcCompute() {
+      // GEHEIMER AUSLÖSER: Wenn exakt "000" eingegeben wurde
+      if (calcInput === "000") {
+        calcClear();
+        showView('view-unlock');
+        return;
+      }
+
+      try {
+        // Sichere Auswertung für den simplen Taschenrechner
+        let result = Function('"use strict";return (' + calcInput + ')')();
+        calcInput = String(result);
+      } catch (e) {
+        calcInput = "Error";
+      }
+      updateCalcScreen();
+    }
+
+    // Portal Navigation & Logik
     window.addEventListener('DOMContentLoaded', () => {
       routeView();
     });
@@ -239,14 +297,26 @@
       if (urlParams.get('action') === 'getkey') {
         showView('view-getkey');
         generateAndDisplayKey();
-      } else {
-        showView('view-unlock');
       }
+      // Startet ansonsten standardmäßig beim Taschenrechner (view-calculator)
     }
 
     function showView(viewId) {
       document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-      document.getElementById(viewId).classList.add('active');
+      document.getElementById('app-container').style.display = 'none';
+      
+      if (viewId === 'app-container') {
+        document.getElementById('app-container').style.display = 'block';
+      } else {
+        document.getElementById(viewId).classList.add('active');
+      }
+    }
+
+    function returnToCalculator() {
+      // URL-Parameter ?action=getkey entfernen, falls vorhanden
+      window.history.replaceState({}, document.title, window.location.pathname);
+      calcClear();
+      showView('view-calculator');
     }
 
     function openLinkvertise(e) {
@@ -254,7 +324,6 @@
       window.location.href = LINKVERTISE_URL;
     }
 
-    // Erstellt einen einfachen Geräte-Fingerabdruck aus Browser-Eigenschaften
     function getDeviceFingerprint() {
       const nav = window.navigator;
       const screen = window.screen;
@@ -298,7 +367,6 @@
       const now = Date.now();
       const deviceHash = getDeviceFingerprint();
       
-      // Prüfe die letzten 24 Stunden mit dem aktuellen Geräte-Hash
       for (let i = 0; i <= 24; i++) {
         const testTime = now - (i * 60 * 60 * 1000);
         if (generateKeyForTimestamp(testTime, deviceHash) === cleanKey) {
@@ -313,19 +381,15 @@
       const messageField = document.getElementById('unlock-message');
       const key = inputField.value;
 
-      messageField.className = 'message';
       messageField.innerText = '';
 
       if (validateKey(key)) {
-        messageField.className = 'message success';
-        messageField.innerText = 'Schlüssel akzeptiert! Weiterleitung...';
-        
+        messageField.innerText = 'OK. Lade...';
         setTimeout(() => {
-          showApp();
-        }, 600);
+          showView('app-container');
+        }, 400);
       } else {
-        messageField.className = 'message error';
-        messageField.innerText = 'Ungültiger Key oder falsches Gerät!';
+        messageField.innerText = 'Ungültig.';
       }
     }
 
@@ -338,7 +402,6 @@
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(keyText).then(() => {
-          alert("Schlüssel kopiert! (Er funktioniert nur auf diesem Gerät).");
           fallbackCopy();
         }).catch(() => {
           fallbackCopy();
@@ -346,10 +409,6 @@
       } else {
         fallbackCopy();
       }
-    }
-
-    function showApp() {
-      document.getElementById('app-container').style.display = 'block';
     }
   </script>
 </body>
