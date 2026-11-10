@@ -4,8 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculator - Wikipedia</title>
+  
+  <!-- GOOGLE ADSENSE GLOBAL SCRIPT -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4532900123492437" crossorigin="anonymous"></script>
+
   <style>
-    /* Klassisches Wikipedia- / Alt-Look Design */
     body {
       background: #ffffff;
       color: #000000;
@@ -20,7 +23,6 @@
       box-sizing: border-box;
     }
 
-    /* Wikipedia-artiger Header */
     .wiki-header {
       width: 100%;
       max-width: 400px;
@@ -61,7 +63,6 @@
       display: flex;
     }
 
-    /* Taschenrechner Styling (Simpel, Schwarz-Weiß) */
     .calc-container {
       border: 1px solid #a2a9b1;
       padding: 15px;
@@ -101,7 +102,6 @@
       background: #eaecf0;
     }
 
-    /* Portal Container */
     .portal-box {
       border: 1px solid #a2a9b1;
       padding: 25px;
@@ -180,7 +180,14 @@
       background: #fff;
     }
 
-    /* Not-Zurück-Button (Unten Rechts) */
+    .ad-slot {
+      width: 100%;
+      max-width: 320px;
+      margin: 15px 0;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
     .exit-btn {
       position: fixed;
       bottom: 15px;
@@ -217,11 +224,25 @@
 </head>
 <body>
 
-  <!-- VIEW 1: TARNUNG - WIKIPEDIA-STYLE TASCHENRECHNER -->
+  <!-- VIEW 1: TASCHENRECHNER + WERBUNG -->
   <div id="view-calculator" class="view active" style="position: relative; height: auto; justify-content: flex-start;">
     <div class="wiki-header">
       <h1 class="wiki-title">Calculator</h1>
       <p class="wiki-subtitle">From Wikipedia, the free encyclopedia</p>
+    </div>
+
+    <!-- Echter Google AdSense Werbe-Slot -->
+    <div class="ad-slot">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4532900123492437" crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4532900123492437"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
     </div>
 
     <div class="calc-container">
@@ -259,7 +280,7 @@
       <input type="text" id="key-input" placeholder="MK-..." autocomplete="off">
 
       <button class="btn" onclick="unlockWithKey()">Unlock</button>
-      <button class="btn" onclick="openLinkvertise(event)">Get Key</button>
+      <button class="btn" onclick="showView('view-getkey'); generateAndDisplayKey();">Get Key</button>
 
       <div id="unlock-message" class="message"></div>
     </div>
@@ -274,7 +295,7 @@
 
       <div id="generated-key-display" class="key-box">Lade...</div>
 
-      <button class="btn" onclick="copyAndRedirect()">Key kopieren & Weiter</button>
+      <button class="btn" onclick="copyAndUseKeyDirectly()">Key kopieren & Starten</button>
     </div>
     <button class="exit-btn" onclick="returnToCalculator()">Zurück</button>
   </div>
@@ -286,7 +307,6 @@
   </div>
 
   <script>
-    const LINKVERTISE_URL = "https://link-hub.net/10624438/ADobqisFUWgc"; 
     const KEY_PREFIX = "MK-";
     const SECRET_SALT = "MATHKIT_DEVICE_LOCK_2026";
 
@@ -311,8 +331,7 @@
     }
 
     function calcCompute() {
-      // GEHEIMER AUSLÖSER: Wenn exakt "000" eingegeben wurde
-      if (calcInput === "1234") {
+      if (calcInput === "000") {
         calcClear();
         showView('view-unlock');
         return;
@@ -327,18 +346,6 @@
       updateCalcScreen();
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      routeView();
-    });
-
-    function routeView() {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('action') === 'getkey') {
-        showView('view-getkey');
-        generateAndDisplayKey();
-      }
-    }
-
     function showView(viewId) {
       document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
       document.getElementById('app-container').style.display = 'none';
@@ -351,14 +358,8 @@
     }
 
     function returnToCalculator() {
-      window.history.replaceState({}, document.title, window.location.pathname);
       calcClear();
       showView('view-calculator');
-    }
-
-    function openLinkvertise(e) {
-      e.preventDefault();
-      window.location.href = LINKVERTISE_URL;
     }
 
     function getDeviceFingerprint() {
@@ -430,21 +431,17 @@
       }
     }
 
-    function copyAndRedirect() {
+    function copyAndUseKeyDirectly() {
       const keyText = document.getElementById('generated-key-display').innerText;
-      
-      const fallbackCopy = () => {
-        window.location.href = window.location.origin + window.location.pathname;
-      };
-
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(keyText).then(() => {
-          fallbackCopy();
-        }).catch(() => {
-          fallbackCopy();
+          showView('view-unlock');
+          document.getElementById('key-input').value = keyText;
+          document.getElementById('unlock-message').innerText = 'Schlüssel kopiert & eingefügt! Drücke Unlock.';
         });
       } else {
-        fallbackCopy();
+        showView('view-unlock');
+        document.getElementById('key-input').value = keyText;
       }
     }
   </script>
