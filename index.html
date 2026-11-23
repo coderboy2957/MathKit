@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taschenrechner – Wikipedia</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+  <style>
+    /* ========================================================
+       WIKIPEDIA CAMOUFLAGE THEME (Active by default)
+       ======================================================== */
+    :root {
+      --wiki-bg: #ffffff;
+      --wiki-border: #a2a9b1;
+      --wiki-text: #202122;
+      --wiki-link: #3366cc;
+      --wiki-header-bg: #f8f9fa;
+      --wiki-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Nimbus Sans L", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body.wiki-mode {
+      background-color: var(--wiki-bg);
+      color: var(--wiki-text);
+      font-family: var(--wiki-font);
+      font-size: 14px;
+      line-height: 1.6;
+      user-select: text;
+    }
+
+    #view-wiki {
+      display: block;
+      width: 100%;
+      min-height: 100vh;
+      background: #fff;
+    }
+
+    /* Top utility bar */
+    .wiki-top-nav {
+      background: #f8f9fa;
+      border-bottom: 1px solid #c8ccd1;
+      padding: 6px 20px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+      font-size: 12px;
+      color: #54595d;
+    }
+    .wiki-top-nav a { color: var(--wiki-link); text-decoration: none; }
+    .wiki-top-nav a:hover { text-decoration: underline; }
+
+    /* Header */
+    .wiki-header {
+      padding: 12px 24px;
+      border-bottom: 1px solid #a2a9b1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .wiki-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #000;
+    }
+    .wiki-logo-icon {
+      font-size: 28px;
+    }
+    .wiki-wordmark {
+      font-family: "Linux Libertine", "Georgia", "Times", serif;
+      font-size: 22px;
+      font-weight: normal;
+      letter-spacing: -0.5px;
+    }
+    .wiki-search-box {
+      display: flex;
+      align-items: center;
+      border: 1px solid #72777d;
+      border-radius: 2px;
+      padding: 4px 8px;
+      width: 280px;
+      background: #fff;
+    }
+    .wiki-search-box input {
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 13px;
+    }
+
+    /* Page Layout */
+    .wiki-layout {
+      display: flex;
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 14px 20px 40px;
+      gap: 24px;
+    }
+
+    /* Sidebar */
+    .wiki-sidebar {
+      width: 160px;
+      flex-shrink: 0;
+      font-size: 12.5px;
+      color: #54595d;
+      border-right: 1px solid #eaecf0;
+      padding-right: 14px;
+    }
+    .wiki-sidebar-group { margin-bottom: 16px; }
+    .wiki-sidebar-title {
+      font-weight: bold;
+      color: #54595d;
+      border-bottom: 1px solid #eaecf0;
+      padding-bottom: 3px;
+      margin-bottom: 6px;
+    }
+    .wiki-sidebar ul { list-style: none; }
+    .wiki-sidebar li { margin-bottom: 4px; }
+    .wiki-sidebar a { color: var(--wiki-link); text-decoration: none; }
+    .wiki-sidebar a:hover { text-decoration: underline; }
+
+    /* Article Content */
+    .wiki-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .wiki-article-title {
+      font-family: "Linux Libertine", "Georgia", "Times", serif;
+      font-size: 28px;
+      font-weight: normal;
+      border-bottom: 1px solid #a2a9b1;
+      padding-bottom: 4px;
+      margin-bottom: 4px;
+    }
+    .wiki-tagline {
+      font-size: 12px;
+      color: #54595d;
+      margin-bottom: 14px;
+    }
+
+    /* Tabs */
+    .wiki-tabs {
+      display: flex;
+      border-bottom: 1px solid #a2a9b1;
+      margin-bottom: 16px;
+      gap: 2px;
+    }
+    .wiki-tab {
+      padding: 6px 12px;
+      font-size: 13px;
+      color: var(--wiki-link);
+      cursor: pointer;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+    .wiki-tab.active {
+      color: #202122;
+      border: 1px solid #a2a9b1;
+      border-bottom: 1px solid #fff;
+      margin-bottom: -1px;
+      background: #fff;
+      font-weight: bold;
+    }
+
+    /* Infobox */
+    .wiki-infobox {
+      float: right;
+      width: 290px;
+      border: 1px solid #a2a9b1;
+      background: #f8f9fa;
+      padding: 10px;
+      margin: 0 0 16px 20px;
+      font-size: 12px;
+    }
+    .wiki-infobox-header {
+      font-weight: bold;
+      text-align: center;
+      background: #ccddff;
+      padding: 4px;
+      font-size: 13px;
+      margin: -10px -10px 10px -10px;
+    }
+    .wiki-infobox table { width: 100%; border-collapse: collapse; }
+    .wiki-infobox th { text-align: left; padding: 4px 0; color: #54595d; width: 45%; }
+    .wiki-infobox td { padding: 4px 0; }
+
+    /* Realistic Interactive Calculator Container */
+    .wiki-calc-box {
+      background: #fdfdfd;
+      border: 1px solid #c8ccd1;
+      border-left: 4px solid #3366cc;
+      border-radius: 4px;
+      padding: 18px;
+      margin: 20px 0;
+      max-width: 360px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+    .wiki-calc-title {
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: #202122;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Calculator Device Styling */
+    .calculator-device {
+      background: #2b313d;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      border: 1px solid #1a1e27;
+      user-select: none;
+    }
+    .calc-screen {
+      background: #9cad8e;
+      color: #1a2416;
+      font-family: "Courier New", Courier, monospace;
+      font-weight: 800;
+      font-size: 26px;
+      text-align: right;
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.4);
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      overflow: hidden;
+      word-break: break-all;
+    }
+    .calc-buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .calc-btn {
+      background: #3e4654;
+      color: #ffffff;
+      border: 1px solid #4a5464;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 12px 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.1s;
+      box-shadow: 0 2px 0 #1e222a;
+    }
+    .calc-btn:hover { background: #4e5768; }
+    .calc-btn:active {
+      transform: translateY(2px);
+      box-shadow: none;
+    }
+    .calc-btn.op {
+      background: #f59e0b;
+      border-color: #d97706;
+      color: #000;
+      box-shadow: 0 2px 0 #b45309;
+    }
+    .calc-btn.op:hover { background: #fbbf24; }
+    .calc-btn.clear {
+      background: #ef4444;
+      border-color: #dc2626;
+      box-shadow: 0 2px 0 #b91c1c;
+    }
+    .calc-btn.clear:hover { background: #f87171; }
+    .calc-btn.equal {
+      background: #10b981;
+      border-color: #059669;
+      box-shadow: 0 2px 0 #047857;
+    }
+    .calc-btn.equal:hover { background: #34d399; }
+
+    /* ========================================================
+       MODERN GAMES HUB THEME (Hidden until unlocked)
+       ======================================================== */
+    body.hub-mode {
+      --bg: #07090e;
+      --surface: #0f1422;
+      --surface-card: #141b2d;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.2);
+      --text: #f8fafc;
+      --text-sub: #94a3b8;
+      --text-dim: #64748b;
+      --primary: #6366f1;
+      --accent: #38bdf8;
+      --accent-glow: rgba(99, 102, 241, 0.35);
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.08) 0%, transparent 35%),
+        radial-gradient(circle at 50% 90%, rgba(236, 72, 153, 0.06) 0%, transparent 45%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      user-select: none;
+    }
+
+    #view-hub {
+      display: none;
+      width: 100%;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    /* Hub Header */
+    .hub-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 15, 26, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 28px;
+    }
+    .hub-nav {
+      max-width: 1480px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .hub-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+    .hub-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #6366f1, #38bdf8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    }
+    .hub-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hub-search-box {
+      position: relative;
+      flex: 1;
+      max-width: 440px;
+      min-width: 220px;
+    }
+    .hub-search-box input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 10px 16px 10px 42px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .hub-search-box input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+    }
+    .hub-search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      font-size: 0.95rem;
+    }
+    .hub-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .panic-btn {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #f87171;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .panic-btn:hover {
+      background: #ef4444;
+      color: #fff;
+    }
+    .hub-count {
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      color: #a5b4fc;
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+
+    /* Filters */
+    .hub-filters {
+      max-width: 1480px;
+      margin: 18px auto 0;
+      padding: 0 28px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .hub-filters::-webkit-scrollbar { display: none; }
+    .hub-chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text-sub);
+      padding: 7px 16px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .hub-chip:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+    .hub-chip.active {
+      background: linear-gradient(135deg, var(--primary), #4338ca);
+      border-color: rgba(99, 102, 241, 0.6);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+    }
+
+    /* Main Grid */
+    .hub-main {
+      flex: 1;
+      max-width: 1480px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 28px 48px;
+    }
+    .hub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    /* Card */
+    .hub-card {
+      position: relative;
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s, border-color 0.25s;
+    }
+    .hub-card:hover {
+      transform: translateY(-6px) scale(1.015);
+      border-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px var(--card-glow);
+    }
+    .card-banner {
+      width: 100%;
+      height: 155px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gradient);
+    }
+    .banner-icon {
+      font-size: 4rem;
+      filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45));
+      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .hub-card:hover .banner-icon {
+      transform: scale(1.18) rotate(-4deg);
+    }
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+    .card-fav-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      opacity: 0;
+      transition: all 0.2s;
+      z-index: 5;
+    }
+    .hub-card:hover .card-fav-btn, .card-fav-btn.is-fav {
+      opacity: 1;
+    }
+    .card-fav-btn.is-fav {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.4);
+    }
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(2px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .hub-card:hover .card-overlay { opacity: 1; }
+    .play-pill {
+      background: #fff;
+      color: #07090e;
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 9px 18px;
+      border-radius: 30px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+    .card-meta {
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface-card);
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .meta-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .meta-cat {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+    .card-tab-btn {
+      color: var(--text-dim);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+    .card-tab-btn:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+
+    /* Theater Player */
+    .theater-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(4, 6, 11, 0.92);
+      backdrop-filter: blur(16px);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+    }
+    .theater-modal.active { display: flex; }
+    .theater-box {
+      width: 100%;
+      max-width: 1280px;
+      height: 94vh;
+      background: #090d16;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
+    }
+    .theater-header {
+      background: #0f1422;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .theater-controls {
+      display: flex;
+      gap: 8px;
+    }
+    .th-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: var(--text-sub);
+      height: 34px;
+      padding: 0 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+    .th-btn:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+    .th-btn.close {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.35);
+      color: #f87171;
+    }
+    .th-btn.close:hover { background: #ef4444; color: #fff; }
+    .theater-frame {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #000;
+    }
+  </style>
+</head>
+<body class="wiki-mode">
+
+  <!-- ==========================================
+       VIEW 1: WIKIPEDIA CAMOUFLAGE CALCULATOR
+       ========================================== -->
+  <div id="view-wiki">
+    <!-- Wikipedia Top Meta Nav -->
+    <div class="wiki-top-nav">
+      <span>Nicht angemeldet</span>
+      <a href="#">Diskussionsseite</a>
+      <a href="#">Beiträge</a>
+      <a href="#">Benutzerkonto erstellen</a>
+      <a href="#">Anmelden</a>
+    </div>
+
+    <!-- Wikipedia Header -->
+    <header class="wiki-header">
+      <div class="wiki-brand">
+        <span class="wiki-logo-icon">🌐</span>
+        <div>
+          <div class="wiki-wordmark">Wikipedia</div>
+          <div style="font-size: 10px; color: #54595d;">Die freie Enzyklopädie</div>
+        </div>
+      </div>
+      <div class="wiki-search-box">
+        <input type="text" placeholder="Wikipedia durchsuchen" autocomplete="off">
+        <span style="color:#72777d; font-size:12px;">🔍</span>
+      </div>
+    </header>
+
+    <!-- Wikipedia Layout -->
+    <div class="wiki-layout">
+      <!-- Sidebar -->
+      <aside class="wiki-sidebar">
+        <div class="wiki-sidebar-group">
+          <div class="wiki-sidebar-title">Navigation</div>
+          <ul>
+            <li><a href="#">Hauptseite</a></li>
+            <li><a href="#">Themenportale</a></li>
+            <li><a href="#">Zufälliger Artikel</a></li>
+          </ul>
+        </div>
+        <div class="wiki-sidebar-group">
+          <div class="wiki-sidebar-title">Mitmachen</div>
+          <ul>
+            <li><a href="#">Artikel verbessern</a></li>
+            <li><a href="#">Neuen Artikel anlegen</a></li>
+            <li><a href="#">Autorenportal</a></li>
+            <li><a href="#">Spenden</a></li>
+          </ul>
+        </div>
+        <div class="wiki-sidebar-group">
+          <div class="wiki-sidebar-title">Werkzeuge</div>
+          <ul>
+            <li><a href="#">Links auf diese Seite</a></li>
+            <li><a href="#">Änderungen an verlinkten Seiten</a></li>
+            <li><a href="#">Spezialseiten</a></li>
+            <li><a href="#">Permanenter Link</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main Article -->
+      <main class="wiki-content">
+        <!-- Tabs -->
+        <div class="wiki-tabs">
+          <div class="wiki-tab active">Artikel</div>
+          <div class="wiki-tab">Diskussion</div>
+          <div style="flex:1;"></div>
+          <div class="wiki-tab active">Lesen</div>
+          <div class="wiki-tab">Quelltext anzeigen</div>
+          <div class="wiki-tab">Versionsgeschichte</div>
+        </div>
+
+        <h1 class="wiki-article-title">Taschenrechner</h1>
+        <div class="wiki-tagline">Aus Wikipedia, der freien Enzyklopädie</div>
+
+        <!-- Infobox Right -->
+        <div class="wiki-infobox">
+          <div class="wiki-infobox-header">Elektronischer Taschenrechner</div>
+          <table>
+            <tr><th>Kategorie:</th><td>Rechenhilfsmittel</td></tr>
+            <tr><th>Erstes Modell:</th><td>1967 (Texas Instruments)</td></tr>
+            <tr><th>Eingabe:</th><td>Tastenfeld (AOS-Logik)</td></tr>
+            <tr><th>Anzeige:</th><td>LC-Display / VFD</td></tr>
+            <tr><th>Stromversorgung:</th><td>Solar / Batterie</td></tr>
+          </table>
+        </div>
+
+        <p>
+          Ein <b>Taschenrechner</b> ist eine handliche, tragbare elektronische Rechenmaschine, mit deren Hilfe numerische Berechnungen durchgeführt werden können. Moderne Ausführungen reichen von einfachen Grundrechenarten-Modellen über wissenschaftliche Schulrechner bis hin zu programmierbaren Grafikrechnern mit Computeralgebrasystemen (CAS).
+        </p>
+        <p style="margin-top: 10px;">
+          Historisch löste der Taschenrechner in den 1970er-Jahren den bis dahin im Schul- und Ingenieurwesen allgegenwärtigen Rechenschieber sowie gedruckte mathematische Funktionstafeln fast vollständig ab.
+        </p>
+
+        <!-- Interactive Calculator Camouflage Box -->
+        <div class="wiki-calc-box">
+          <div class="wiki-calc-title">
+            <span>🧮</span>
+            <span>Interaktive Funktionsprüfung (AOS-Standard)</span>
+          </div>
+          
+          <div class="calculator-device">
+            <div class="calc-screen" id="calc-screen">0</div>
+            <div class="calc-buttons">
+              <button class="calc-btn clear" onclick="calcAction('C')">C</button>
+              <button class="calc-btn" onclick="calcAction('(')">(</button>
+              <button class="calc-btn" onclick="calcAction(')')">)</button>
+              <button class="calc-btn op" onclick="calcAction('/')">÷</button>
+
+              <button class="calc-btn" onclick="calcDigit('7')">7</button>
+              <button class="calc-btn" onclick="calcDigit('8')">8</button>
+              <button class="calc-btn" onclick="calcDigit('9')">9</button>
+              <button class="calc-btn op" onclick="calcAction('*')">×</button>
+
+              <button class="calc-btn" onclick="calcDigit('4')">4</button>
+              <button class="calc-btn" onclick="calcDigit('5')">5</button>
+              <button class="calc-btn" onclick="calcDigit('6')">6</button>
+              <button class="calc-btn op" onclick="calcAction('-')">−</button>
+
+              <button class="calc-btn" onclick="calcDigit('1')">1</button>
+              <button class="calc-btn" onclick="calcDigit('2')">2</button>
+              <button class="calc-btn" onclick="calcDigit('3')">3</button>
+              <button class="calc-btn op" onclick="calcAction('+')">+</button>
+
+              <button class="calc-btn" onclick="calcAction('±')">±</button>
+              <button class="calc-btn" onclick="calcDigit('0')">0</button>
+              <button class="calc-btn" onclick="calcAction('.')">.</button>
+              <button class="calc-btn equal" onclick="calcCompute()">=</button>
+            </div>
+          </div>
+        </div>
+
+        <h2 style="font-size: 19px; border-bottom: 1px solid #a2a9b1; margin: 24px 0 10px;">Funktionsweise</h2>
+        <p>
+          Die interne Architektur moderner Taschenrechner basiert auf hochintegrierten Mikrocontrollern (ASICs), die Tastenmatrix-Abfragen durchführen, Rechenregister im BCD-Format (Binary Coded Decimal) aktualisieren und Ergebnisse auf Multiplex-Displays ausgeben.
+        </p>
+      </main>
+    </div>
+  </div>
+
+
+  <!-- ==========================================
+       VIEW 2: GAMES HUB (UNLOCKED VIA CODE 1234)
+       ========================================== -->
+  <div id="view-hub">
+    <!-- Top Navigation -->
+    <header class="hub-header">
+      <div class="hub-nav">
+        <div class="hub-brand" onclick="resetFilters()">
+          <div class="hub-logo">🎮</div>
+          <div class="hub-title">Games Hub</div>
+        </div>
+
+        <div class="hub-search-box">
+          <span class="hub-search-icon">🔍</span>
+          <input type="text" id="search" placeholder="Spiel suchen (Taste '/' drücken)..." autocomplete="off">
+        </div>
+
+        <div class="hub-actions">
+          <button class="panic-btn" onclick="lockToWiki()" title="Sofort zurück zum Taschenrechner (Tastenkürzel: Esc)">
+            🔒 Rechner
+          </button>
+          <div class="hub-count" id="game-count">22 Spiele</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Genre Filter Chips -->
+    <div class="hub-filters">
+      <button class="hub-chip active" data-cat="all">Alle</button>
+      <button class="hub-chip" data-cat="favorites">❤️ Favoriten</button>
+      <button class="hub-chip" data-cat="arcade">🕹️ Arcade</button>
+      <button class="hub-chip" data-cat="action">💥 Action</button>
+      <button class="hub-chip" data-cat="racing">🏎️ Racing</button>
+      <button class="hub-chip" data-cat="clicker">🍪 Clicker</button>
+      <button class="hub-chip" data-cat="puzzle">🧩 Puzzle & Strategie</button>
+      <button class="hub-chip" data-cat="horror">👁️ Horror</button>
+    </div>
+
+    <!-- Games Grid (Zero bottom text) -->
+    <main class="hub-main">
+      <div class="hub-grid" id="grid"></div>
+    </main>
+  </div>
+
+
+  <!-- Theater Player Modal -->
+  <div class="theater-modal" id="player-modal">
+    <div class="theater-box">
+      <div class="theater-header">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span id="modal-icon" style="font-size:1.4rem;">🎮</span>
+          <span id="modal-title" style="font-weight:700; color:#fff;">Spiel</span>
+          <span id="modal-cat" style="font-size:0.7rem; color:#38bdf8; background:rgba(255,255,255,0.08); padding:2px 8px; border-radius:6px; text-transform:uppercase; font-weight:700;">Arcade</span>
+        </div>
+        <div class="theater-controls">
+          <button class="th-btn" id="btn-reload" title="Neu laden">🔄 Neu laden</button>
+          <button class="th-btn" id="btn-fullscreen" title="Vollbild">⛶ Vollbild</button>
+          <a class="th-btn" id="btn-newtab" target="_blank" title="In neuem Tab öffnen">↗ Neuer Tab</a>
+          <button class="th-btn close" id="btn-close" title="Schließen (Esc)">✕ Schließen</button>
+        </div>
+      </div>
+      <iframe id="game-frame" class="theater-frame" allow="autoplay; gamepad; fullscreen; cross-origin-isolated" allowfullscreen></iframe>
+    </div>
+  </div>
+
+
+  <script>
+    // ==========================================
+    // 1. CALCULATOR & SECRET CODE ENGINE (1234)
+    // ==========================================
+    let calcVal = "0";
+    let keyBuffer = "";
+    const calcScreen = document.getElementById("calc-screen");
+
+    function updateScreen() {
+      calcScreen.textContent = calcVal;
+    }
+
+    function checkSecret(inputStr) {
+      if (inputStr === "1234" || inputStr.endsWith("1234")) {
+        unlockGamesHub();
+        return true;
+      }
+      return false;
+    }
+
+    function calcDigit(d) {
+      if (calcVal === "0" || calcVal === "Error") {
+        calcVal = d;
+      } else {
+        calcVal += d;
+      }
+      updateScreen();
+      checkSecret(calcVal);
+    }
+
+    function calcAction(act) {
+      if (act === 'C') {
+        calcVal = "0";
+      } else if (act === '±') {
+        if (calcVal !== "0" && calcVal !== "Error") {
+          calcVal = calcVal.startsWith('-') ? calcVal.slice(1) : '-' + calcVal;
+        }
+      } else if (act === '.') {
+        if (!calcVal.includes('.')) calcVal += '.';
+      } else {
+        calcVal += act;
+      }
+      updateScreen();
+    }
+
+    function calcCompute() {
+      if (checkSecret(calcVal)) return;
+
+      try {
+        const sanitized = calcVal.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-');
+        const res = Function('"use strict";return (' + sanitized + ')')();
+        calcVal = String(Number.isFinite(res) ? Math.round(res * 1e8) / 1e8 : "Error");
+      } catch (e) {
+        calcVal = "Error";
+      }
+      updateScreen();
+    }
+
+    // Global Key Listener for Calculator & Secret Code 1234
+    window.addEventListener("keydown", (e) => {
+      // If already in hub mode, handle shortcuts
+      if (document.body.classList.contains("hub-mode")) {
+        if (e.key === "Escape") {
+          // If modal open, close modal; if not, panic lock to wiki
+          if (document.getElementById("player-modal").classList.contains("active")) {
+            closePlayer();
+          } else {
+            lockToWiki();
+          }
+        }
+        if (e.key === "/" && document.activeElement !== document.getElementById("search")) {
+          e.preventDefault();
+          document.getElementById("search").focus();
+        }
+        return;
+      }
+
+      // In Wiki Calculator Mode:
+      keyBuffer += e.key;
+      if (keyBuffer.length > 10) keyBuffer = keyBuffer.slice(-10);
+      if (checkSecret(keyBuffer)) return;
+
+      if (e.key >= '0' && e.key <= '9') {
+        calcDigit(e.key);
+      } else if (['+', '-', '*', '/'].includes(e.key)) {
+        calcAction(e.key);
+      } else if (e.key === 'Enter' || e.key === '=') {
+        calcCompute();
+      } else if (e.key === 'Backspace' || e.key === 'Escape') {
+        calcAction('C');
+      }
+    });
+
+    function unlockGamesHub() {
+      document.title = "Games Hub";
+      document.body.classList.remove("wiki-mode");
+      document.body.classList.add("hub-mode");
+      document.getElementById("view-wiki").style.display = "none";
+      document.getElementById("view-hub").style.display = "flex";
+      sessionStorage.setItem("mathkit_unlocked", "1");
+      renderHub();
+    }
+
+    function lockToWiki() {
+      document.title = "Taschenrechner – Wikipedia";
+      document.body.classList.remove("hub-mode");
+      document.body.classList.add("wiki-mode");
+      document.getElementById("view-hub").style.display = "none";
+      document.getElementById("view-wiki").style.display = "block";
+      closePlayer();
+      calcVal = "0";
+      keyBuffer = "";
+      updateScreen();
+      sessionStorage.removeItem("mathkit_unlocked");
+    }
+
+
+    // ==========================================
+    // 2. GAMES REGISTRY & HUB ENGINE (22 Games)
+    // ==========================================
+    const games = [
+      {
+        id: "cookie-clicker",
+        title: "Cookie Clicker",
+        cat: "clicker",
+        catLabel: "Clicker",
+        icon: "🍪",
+        badge: "Klassiker",
+        gradient: "linear-gradient(135deg, #78350f, #d97706)",
+        glow: "rgba(217, 119, 6, 0.35)",
+        path: "games/cookie-clicker/index.html"
+      },
+      {
+        id: "geometry-dash",
+        title: "Geometry Dash",
+        cat: "arcade",
+        catLabel: "Rhythm",
+        icon: "🟩",
+        badge: "Beliebt",
+        gradient: "linear-gradient(135deg, #0575e6, #00f260)",
+        glow: "rgba(0, 242, 96, 0.35)",
+        path: "games/geometry-dash/index.html"
+      },
+      {
+        id: "fnaf",
+        title: "Five Nights at Freddy's",
+        cat: "horror",
+        catLabel: "Horror",
+        icon: "🐻",
+        badge: "Kult",
+        gradient: "linear-gradient(135deg, #450a0a, #1c1917)",
+        glow: "rgba(220, 38, 38, 0.35)",
+        path: "games/fnaf/index.html"
+      },
+      {
+        id: "angry-birds",
+        title: "Angry Birds",
+        cat: "arcade",
+        catLabel: "Physics",
+        icon: "🎯",
+        badge: "Klassiker",
+        gradient: "linear-gradient(135deg, #dc2626, #f59e0b)",
+        glow: "rgba(239, 68, 68, 0.35)",
+        path: "games/angry-birds/index.html"
+      },
+      {
+        id: "plants-vs-zombies",
+        title: "Plants vs. Zombies",
+        cat: "puzzle",
+        catLabel: "Strategie",
+        icon: "🌻",
+        badge: "Beliebt",
+        gradient: "linear-gradient(135deg, #15803d, #84cc16)",
+        glow: "rgba(132, 204, 22, 0.35)",
+        path: "games/plants-vs-zombies/index.html"
+      },
+      {
+        id: "crossy-road",
+        title: "Crossy Road",
+        cat: "arcade",
+        catLabel: "Arcade",
+        icon: "🐔",
+        badge: "3D",
+        gradient: "linear-gradient(135deg, #0284c7, #38bdf8)",
+        glow: "rgba(56, 189, 248, 0.35)",
+        path: "games/crossy-road/index.html"
+      },
+      {
+        id: "happy-wheels",
+        title: "Happy Wheels",
+        cat: "action",
+        catLabel: "Ragdoll",
+        icon: "🚲",
+        badge: "Kult",
+        gradient: "linear-gradient(135deg, #991b1b, #ef4444)",
+        glow: "rgba(239, 68, 68, 0.35)",
+        path: "games/happy-wheels/index.html"
+      },
+      {
+        id: "moto-x3m",
+        title: "Moto X3M",
+        cat: "racing",
+        catLabel: "Stunts",
+        icon: "🏍️",
+        badge: "Action",
+        gradient: "linear-gradient(135deg, #ea580c, #f97316)",
+        glow: "rgba(249, 115, 22, 0.35)",
+        path: "games/moto-x3m/index.html"
+      },
+      {
+        id: "drift-boss",
+        title: "Drift Boss",
+        cat: "racing",
+        catLabel: "Drift",
+        icon: "🚗",
+        badge: "3D Drift",
+        gradient: "linear-gradient(135deg, #7c3aed, #ec4899)",
+        glow: "rgba(236, 72, 153, 0.35)",
+        path: "games/drift-boss/index.html"
+      },
+      {
+        id: "stickman-hook",
+        title: "Stickman Hook",
+        cat: "arcade",
+        catLabel: "Physik",
+        icon: "🪝",
+        badge: "Skill",
+        gradient: "linear-gradient(135deg, #0369a1, #06b6d4)",
+        glow: "rgba(6, 182, 212, 0.35)",
+        path: "games/stickman-hook/index.html"
+      },
+      {
+        id: "hole-io",
+        title: "Hole.io",
+        cat: "action",
+        catLabel: "Battle",
+        icon: "🕳️",
+        badge: "Multiplayer",
+        gradient: "linear-gradient(135deg, #1e1b4b, #4338ca)",
+        glow: "rgba(99, 102, 241, 0.35)",
+        path: "games/hole-io/index.html"
+      },
+      {
+        id: "escape-road",
+        title: "Escape Road",
+        cat: "racing",
+        catLabel: "Verfolgung",
+        icon: "🚓",
+        badge: "Tempo",
+        gradient: "linear-gradient(135deg, #1e3a8a, #dc2626)",
+        glow: "rgba(30, 58, 138, 0.45)",
+        path: "games/escape-road/index.html"
+      },
+      {
+        id: "granny",
+        title: "Granny",
+        cat: "horror",
+        catLabel: "Stealth",
+        icon: "👵",
+        badge: "3D Horror",
+        gradient: "linear-gradient(135deg, #292524, #1c1917)",
+        glow: "rgba(120, 113, 108, 0.3)",
+        path: "games/granny/index.html"
+      },
+      {
+        id: "level-devil",
+        title: "Level Devil",
+        cat: "puzzle",
+        catLabel: "Troll",
+        icon: "😈",
+        badge: "Fies",
+        gradient: "linear-gradient(135deg, #9f1239, #f43f5e)",
+        glow: "rgba(244, 63, 94, 0.35)",
+        path: "games/level-devil/index.html"
+      },
+      {
+        id: "infinite-craft",
+        title: "Infinite Craft",
+        cat: "puzzle",
+        catLabel: "Sandbox",
+        icon: "♾️",
+        badge: "Endlos",
+        gradient: "linear-gradient(135deg, #312e81, #06b6d4)",
+        glow: "rgba(6, 182, 212, 0.35)",
+        path: "games/infinite-craft/index.html"
+      },
+      {
+        id: "state-io",
+        title: "State.io",
+        cat: "puzzle",
+        catLabel: "Strategie",
+        icon: "🗺️",
+        badge: "Taktik",
+        gradient: "linear-gradient(135deg, #0f766e, #0284c7)",
+        glow: "rgba(2, 132, 199, 0.35)",
+        path: "games/state-io/index.html"
+      },
+      {
+        id: "rooftop-snipers",
+        title: "Rooftop Snipers",
+        cat: "action",
+        catLabel: "2-Player",
+        icon: "🎯",
+        badge: "Duell",
+        gradient: "linear-gradient(135deg, #334155, #e11d48)",
+        glow: "rgba(225, 29, 72, 0.35)",
+        path: "games/rooftop-snipers/index.html"
+      },
+      {
+        id: "capybara-clicker",
+        title: "Capybara Clicker",
+        cat: "clicker",
+        catLabel: "Clicker",
+        icon: "🦫",
+        badge: "Süß",
+        gradient: "linear-gradient(135deg, #854d0e, #ca8a04)",
+        glow: "rgba(202, 138, 4, 0.35)",
+        path: "games/capybara-clicker/index.html"
+      },
+      {
+        id: "johnny-trigger",
+        title: "Johnny Trigger",
+        cat: "action",
+        catLabel: "Shooter",
+        icon: "🔫",
+        badge: "Slow-Mo",
+        gradient: "linear-gradient(135deg, #991b1b, #000000)",
+        glow: "rgba(153, 27, 27, 0.35)",
+        path: "games/johnny-trigger/index.html"
+      },
+      {
+        id: "monster-tracks",
+        title: "Monster Tracks",
+        cat: "racing",
+        catLabel: "4x4",
+        icon: "🚚",
+        badge: "Offroad",
+        gradient: "linear-gradient(135deg, #ca8a04, #ea580c)",
+        glow: "rgba(234, 88, 12, 0.35)",
+        path: "games/monster-tracks/index.html"
+      },
+      {
+        id: "bitlife",
+        title: "BitLife",
+        cat: "action",
+        catLabel: "Simulation",
+        icon: "🧬",
+        badge: "Kult",
+        gradient: "linear-gradient(135deg, #0891b2, #10b981)",
+        glow: "rgba(16, 185, 129, 0.35)",
+        path: "games/bitlife/index.html"
+      },
+      {
+        id: "snake",
+        title: "Snake",
+        cat: "arcade",
+        catLabel: "Retro",
+        icon: "🐍",
+        badge: "Klassiker",
+        gradient: "linear-gradient(135deg, #14532d, #22c55e)",
+        glow: "rgba(34, 197, 94, 0.35)",
+        path: "games/snake/index.html"
+      }
+    ];
+
+    let favorites = JSON.parse(localStorage.getItem('games_favorites') || '[]');
+    let currentFilter = 'all';
+    let activeGame = null;
+
+    const grid = document.getElementById('grid');
+    const searchInput = document.getElementById('search');
+    const filterChips = document.querySelectorAll('.hub-chip');
+    const gameCountEl = document.getElementById('game-count');
+
+    // Player Modal
+    const modal = document.getElementById('player-modal');
+    const modalFrame = document.getElementById('game-frame');
+    const modalTitle = document.getElementById('modal-title');
+    const modalIcon = document.getElementById('modal-icon');
+    const modalCat = document.getElementById('modal-cat');
+    const btnReload = document.getElementById('btn-reload');
+    const btnFullscreen = document.getElementById('btn-fullscreen');
+    const btnNewtab = document.getElementById('btn-newtab');
+    const btnClose = document.getElementById('btn-close');
+
+    function toggleFavorite(id, e) {
+      e.stopPropagation();
+      favorites = favorites.includes(id) ? favorites.filter(f => f !== id) : [...favorites, id];
+      localStorage.setItem('games_favorites', JSON.stringify(favorites));
+      renderHub();
+    }
+
+    function renderHub() {
+      const q = searchInput.value.toLowerCase().trim();
+      grid.innerHTML = '';
+
+      let list = games.filter(g => {
+        const matchesCategory = 
+          currentFilter === 'all' ? true :
+          currentFilter === 'favorites' ? favorites.includes(g.id) :
+          g.cat === currentFilter;
+
+        const matchesSearch = !q || 
+          g.title.toLowerCase().includes(q) || 
+          g.catLabel.toLowerCase().includes(q);
+
+        return matchesCategory && matchesSearch;
+      });
+
+      if (currentFilter === 'all' && !q) {
+        list.sort((a, b) => (favorites.includes(b.id) ? 1 : 0) - (favorites.includes(a.id) ? 1 : 0));
+      }
+
+      gameCountEl.textContent = `${list.length} ${list.length === 1 ? 'Spiel' : 'Spiele'}`;
+
+      if (list.length === 0) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding:50px; color:#64748b;">Keine Spiele gefunden.</div>`;
+        return;
+      }
+
+      list.forEach(game => {
+        const isFav = favorites.includes(game.id);
+        const card = document.createElement('div');
+        card.className = 'hub-card';
+        card.style.setProperty('--gradient', game.gradient);
+        card.style.setProperty('--card-glow', game.glow);
+        card.onclick = () => openGame(game);
+
+        card.innerHTML = `
+          <div class="card-banner">
+            <span class="card-badge">${game.badge}</span>
+            <button class="card-fav-btn ${isFav ? 'is-fav' : ''}" onclick="toggleFavorite('${game.id}', event)" title="Favorit">
+              ${isFav ? '❤️' : '🤍'}
+            </button>
+            <div class="banner-icon">${game.icon}</div>
+            <div class="card-overlay">
+              <div class="play-pill">▶ Spielen</div>
+            </div>
+          </div>
+          <div class="card-meta">
+            <div>
+              <div class="meta-title" title="${game.title}">${game.title}</div>
+              <div class="meta-cat">${game.catLabel}</div>
+            </div>
+            <a class="card-tab-btn" href="${game.path}" target="_blank" onclick="event.stopPropagation()" title="In neuem Tab öffnen">↗</a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    filterChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        filterChips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        currentFilter = chip.dataset.cat;
+        renderHub();
+      });
+    });
+
+    function resetFilters() {
+      filterChips.forEach(c => c.classList.remove('active'));
+      document.querySelector('.hub-chip[data-cat="all"]').classList.add('active');
+      currentFilter = 'all';
+      searchInput.value = '';
+      renderHub();
+    }
+
+    searchInput.addEventListener('input', renderHub);
+
+    function openGame(game) {
+      activeGame = game;
+      modalTitle.textContent = game.title;
+      modalIcon.textContent = game.icon;
+      modalCat.textContent = game.catLabel;
+      modalFrame.src = game.path;
+      btnNewtab.href = game.path;
+      modal.classList.add('active');
+    }
+
+    function closePlayer() {
+      modal.classList.remove('active');
+      modalFrame.src = 'about:blank';
+      activeGame = null;
+    }
+
+    btnClose.addEventListener('click', closePlayer);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closePlayer();
+    });
+
+    btnReload.addEventListener('click', () => {
+      if (activeGame) modalFrame.src = activeGame.path;
+    });
+
+    btnFullscreen.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        modalFrame.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    });
+
+    // Check if already unlocked in this browser tab
+    if (sessionStorage.getItem("mathkit_unlocked") === "1") {
+      unlockGamesHub();
+    }
+  </script>
+</body>
+</html>
