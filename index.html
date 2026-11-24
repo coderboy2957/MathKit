@@ -275,19 +275,26 @@
     .calc-btn.equal:hover { background: #34d399; }
 
     /* ========================================================
-       CLASSROOM GAMES HUB THEME
+       CLASSROOM GAMES HUB THEME (Authentic Classroom Look)
        ======================================================== */
     body.hub-mode {
-      --bg: #0a0c10;
-      --surface: #12151c;
-      --surface-2: #191d27;
-      --border: rgba(255, 255, 255, 0.09);
-      --text: #f3f4f6;
-      --text-sub: #9ca3af;
-      --accent: #3b82f6;
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --cls-bg: #090b0f;
+      --cls-surface: #12151d;
+      --cls-surface-hover: #181c27;
+      --cls-border: rgba(255, 255, 255, 0.08);
+      --cls-border-bright: rgba(255, 255, 255, 0.22);
+      --cls-text: #f3f4f6;
+      --cls-muted: #9ca3af;
+      --cls-blue: #3b82f6;
+      --cls-blue-glow: rgba(59, 130, 246, 0.35);
+      --cls-font: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+      background-color: var(--cls-bg);
+      background-image:
+        radial-gradient(ellipse 70% 35% at 50% 0%, rgba(59, 130, 246, 0.14), transparent 70%),
+        radial-gradient(circle at 12% 28%, rgba(16, 185, 129, 0.06), transparent 40%),
+        radial-gradient(circle at 88% 24%, rgba(245, 158, 11, 0.06), transparent 40%);
+      color: var(--cls-text);
+      font-family: var(--cls-font);
       user-select: none;
     }
 
@@ -303,16 +310,17 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(12, 14, 20, 0.9);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-      padding: 10px 24px;
+      background: rgba(9, 11, 15, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--cls-border);
+      padding: 10px 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
+      gap: 12px;
       flex-wrap: wrap;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
     }
     .cls-left, .cls-right {
       display: flex;
@@ -321,74 +329,82 @@
       flex-wrap: wrap;
     }
     .cls-pill-btn {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
+      background: var(--cls-surface);
+      border: 1px solid var(--cls-border);
       color: #e5e7eb;
       padding: 6px 12px;
       border-radius: 999px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.15s ease;
+      transition: all 0.16s ease;
     }
-    .cls-pill-btn:hover {
-      background: #232836;
-      border-color: rgba(255, 255, 255, 0.22);
+    .cls-pill-btn:hover, .cls-pill-btn.active-top {
+      background: var(--cls-surface-hover);
+      border-color: rgba(59, 130, 246, 0.55);
       color: #fff;
+      box-shadow: 0 0 14px rgba(59, 130, 246, 0.2);
     }
     .cls-brand {
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 900;
-      letter-spacing: 2.5px;
+      letter-spacing: 3px;
       color: #ffffff;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 2px;
+      text-shadow: 0 0 22px rgba(255, 255, 255, 0.16);
     }
     .cls-brand span.dot {
-      color: #3b82f6;
-      font-size: 1.4rem;
+      color: var(--cls-blue);
+      font-size: 1.45rem;
       line-height: 1;
+      text-shadow: 0 0 14px var(--cls-blue-glow);
     }
     .cls-mini-search {
-      position: relative;
       display: flex;
       align-items: center;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: var(--cls-surface);
+      border: 1px solid var(--cls-border);
       border-radius: 999px;
       padding: 5px 12px;
-      width: 210px;
+      width: 215px;
+      transition: border-color 0.16s, box-shadow 0.16s;
+    }
+    .cls-mini-search:focus-within {
+      border-color: var(--cls-blue);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
     }
     .cls-mini-search input {
       background: transparent;
       border: none;
       color: #fff;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       width: 100%;
       outline: none;
       padding-left: 6px;
     }
     .cls-kbd {
       font-size: 0.68rem;
-      color: var(--text-sub);
-      background: rgba(255, 255, 255, 0.06);
+      font-weight: 600;
+      color: var(--cls-muted);
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 1px 6px;
-      border-radius: 6px;
+      padding: 2px 7px;
+      border-radius: 999px;
       white-space: nowrap;
     }
     .cls-panic-btn {
-      background: rgba(239, 68, 68, 0.16);
+      background: rgba(239, 68, 68, 0.14);
       border: 1px solid rgba(239, 68, 68, 0.35);
       color: #fca5a5;
       padding: 6px 12px;
       border-radius: 999px;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.15s;
@@ -396,61 +412,69 @@
     .cls-panic-btn:hover {
       background: #ef4444;
       color: #fff;
+      box-shadow: 0 0 16px rgba(239, 68, 68, 0.45);
     }
 
-    /* Hero & Search Section like Classroom */
+    /* Hero & Search Bar */
     .cls-hero {
-      max-width: 820px;
+      max-width: 780px;
       width: 100%;
-      margin: 28px auto 14px;
+      margin: 28px auto 12px;
       padding: 0 20px;
       text-align: center;
     }
     .cls-hero-title {
-      font-size: clamp(1.9rem, 4vw, 2.7rem);
+      font-size: clamp(2.1rem, 4.5vw, 2.95rem);
       font-weight: 900;
-      letter-spacing: 3px;
+      letter-spacing: 4px;
       color: #ffffff;
       margin-bottom: 18px;
+      text-shadow: 0 0 28px rgba(59, 130, 246, 0.28);
     }
     .cls-hero-title span.dot {
-      color: #3b82f6;
+      color: var(--cls-blue);
+      text-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
     }
     .cls-search-bar {
       display: flex;
       align-items: center;
       gap: 10px;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: var(--cls-surface);
+      border: 1px solid var(--cls-border);
       border-radius: 14px;
       padding: 8px 10px 8px 16px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.02);
+      transition: border-color 0.18s, box-shadow 0.18s;
     }
     .cls-search-bar:focus-within {
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.22);
+      border-color: var(--cls-blue);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.6), 0 0 24px rgba(59, 130, 246, 0.26);
     }
     .cls-search-bar input {
       flex: 1;
       background: transparent;
       border: none;
       color: #fff;
-      font-size: 0.95rem;
+      font-size: 0.94rem;
       outline: none;
     }
     .cls-random-btn {
-      background: #2563eb;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
       border: none;
       color: #fff;
       font-size: 0.8rem;
       font-weight: 700;
-      padding: 8px 14px;
+      padding: 8px 15px;
       border-radius: 10px;
       cursor: pointer;
       white-space: nowrap;
-      transition: background 0.15s;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+      transition: transform 0.12s, box-shadow 0.15s;
     }
-    .cls-random-btn:hover { background: #3b82f6; }
+    .cls-random-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.55);
+    }
 
     /* Category Pills */
     .cls-cats {
@@ -465,24 +489,26 @@
       flex-wrap: wrap;
     }
     .cls-cat-pill {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text-sub);
+      background: var(--cls-surface);
+      border: 1px solid var(--cls-border);
+      color: var(--cls-muted);
       padding: 6px 14px;
       border-radius: 999px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.16s ease;
     }
     .cls-cat-pill:hover {
       color: #fff;
-      background: var(--surface-2);
+      background: var(--cls-surface-hover);
+      border-color: rgba(255, 255, 255, 0.2);
     }
     .cls-cat-pill.active {
       background: #2563eb;
-      border-color: #3b82f6;
+      border-color: #60a5fa;
       color: #fff;
+      box-shadow: 0 0 18px rgba(37, 99, 235, 0.45);
     }
 
     /* Games Grid */
@@ -491,7 +517,7 @@
       max-width: 1440px;
       width: 100%;
       margin: 0 auto;
-      padding: 20px 24px 52px;
+      padding: 20px 24px 56px;
     }
     .cls-grid {
       display: grid;
@@ -502,97 +528,109 @@
       .cls-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     }
 
-    /* Classroom Game Tile */
+    /* Classroom Game Tile — zero text/badge overlap over artwork */
     .cls-tile {
       position: relative;
       aspect-ratio: 1 / 1;
       border-radius: 18px;
       overflow: hidden;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: var(--cls-surface);
+      border: 1px solid var(--cls-border);
       cursor: pointer;
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+      transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s ease, box-shadow 0.22s ease;
     }
     .cls-tile:hover {
-      transform: translateY(-4px) scale(1.015);
-      border-color: rgba(255, 255, 255, 0.28);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+      transform: translateY(-5px) scale(1.02);
+      border-color: var(--cls-border-bright);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.68), 0 0 22px rgba(59, 130, 246, 0.22);
     }
     .cls-tile img.cover {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.32s ease;
     }
+    .cls-tile:hover img.cover {
+      transform: scale(1.04);
+    }
+
+    /* Top-corner floating controls outside the center & caption */
     .cls-tile-badge {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(15, 23, 42, 0.82);
-      backdrop-filter: blur(6px);
+      top: 8px;
+      right: 8px;
+      background: rgba(9, 11, 15, 0.78);
+      backdrop-filter: blur(8px);
       border: 1px solid rgba(255, 255, 255, 0.16);
       color: #fbbf24;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 800;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.5px;
       padding: 2px 7px;
       border-radius: 999px;
       text-transform: uppercase;
       z-index: 3;
+      pointer-events: none;
     }
     .cls-tile-fav {
       position: absolute;
-      top: 10px;
-      left: 10px;
+      top: 8px;
+      left: 8px;
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: rgba(10, 12, 16, 0.72);
+      background: rgba(9, 11, 15, 0.75);
+      backdrop-filter: blur(8px);
       border: 1px solid rgba(255, 255, 255, 0.16);
       color: #fff;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      opacity: 0.82;
+      opacity: 0.78;
       z-index: 4;
-      transition: transform 0.15s, opacity 0.15s, background 0.15s;
+      transition: transform 0.15s, opacity 0.15s, background 0.15s, box-shadow 0.15s;
     }
     .cls-tile:hover .cls-tile-fav,
     .cls-tile-fav.is-fav {
       opacity: 1;
     }
-    .cls-tile-fav:hover { transform: scale(1.1); }
+    .cls-tile-fav:hover { transform: scale(1.08); }
     .cls-tile-fav.is-fav {
-      background: rgba(239, 68, 68, 0.3);
-      border-color: rgba(248, 113, 113, 0.6);
+      background: rgba(239, 68, 68, 0.28);
+      border-color: rgba(248, 113, 113, 0.65);
+      box-shadow: 0 0 12px rgba(239, 68, 68, 0.35);
     }
-    .cls-tile-caption {
+
+    /* Clean bottom bar for game title + open-in-tab button */
+    .cls-tile-footer {
       position: absolute;
       inset: auto 0 0 0;
-      padding: 28px 12px 11px;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.45) 65%, transparent 100%);
+      padding: 22px 10px 9px;
+      background: linear-gradient(to top, rgba(6, 8, 12, 0.92) 0%, rgba(6, 8, 12, 0.65) 60%, transparent 100%);
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       justify-content: space-between;
       gap: 6px;
       z-index: 2;
     }
     .cls-tile-name {
-      font-size: 0.9rem;
+      font-size: 0.84rem;
       font-weight: 800;
       color: #ffffff;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
-      line-height: 1.2;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+      line-height: 1.15;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
     .cls-tile-tab {
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255, 255, 255, 0.85);
       background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       width: 24px;
       height: 24px;
       border-radius: 7px;
@@ -602,9 +640,11 @@
       justify-content: center;
       text-decoration: none;
       flex-shrink: 0;
+      transition: background 0.15s, color 0.15s;
     }
     .cls-tile-tab:hover {
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(59, 130, 246, 0.35);
+      border-color: rgba(96, 165, 250, 0.6);
       color: #fff;
     }
 
@@ -632,7 +672,7 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 36px rgba(59, 130, 246, 0.15);
     }
     .theater-header {
       background: #0f1422;
@@ -868,7 +908,7 @@
     <div class="theater-box">
       <div class="theater-header">
         <div style="display:flex; align-items:center; gap:10px;">
-          <span id="modal-icon" style="font-size:1.4rem;">🎮</span>
+          <img id="modal-cover" src="" alt="" style="width:28px; height:28px; border-radius:7px; object-fit:cover; border:1px solid rgba(255,255,255,0.16);">
           <span id="modal-title" style="font-weight:700; color:#fff;">Spiel</span>
           <span id="modal-cat" style="font-size:0.7rem; color:#60a5fa; background:rgba(59,130,246,0.14); padding:2px 8px; border-radius:6px; text-transform:uppercase; font-weight:700;">Arcade</span>
         </div>
@@ -1023,56 +1063,55 @@
     }
 
     // ==========================================
-    // 2. CUSTOM GAME COVER GENERATOR (22 GAMES)
+    // 2. GAME LOGOS & CLASSROOM HUB (22 GAMES)
     // ==========================================
-    function makeCover(c1, c2, accent, icon, tag) {
-      const svg = `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-          <defs>
-            <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="${c1}"/>
-              <stop offset="100%" stop-color="${c2}"/>
-            </linearGradient>
-            <radialGradient id="glow" cx="50%" cy="42%" r="55%">
-              <stop offset="0%" stop-color="${accent}" stop-opacity="0.45"/>
-              <stop offset="100%" stop-color="${c2}" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-          <rect width="400" height="400" fill="url(#bg)"/>
-          <rect width="400" height="400" fill="url(#glow)"/>
-          <circle cx="200" cy="175" r="110" fill="none" stroke="#ffffff" stroke-opacity="0.12" stroke-width="2"/>
-          <circle cx="200" cy="175" r="145" fill="none" stroke="${accent}" stroke-opacity="0.22" stroke-width="1.5" stroke-dasharray="8 8"/>
-          <text x="200" y="210" text-anchor="middle" font-size="128" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif">${icon}</text>
-          <rect x="24" y="24" width="84" height="28" rx="8" fill="#000000" fill-opacity="0.45"/>
-          <text x="66" y="43" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="800" font-family="-apple-system, BlinkMacSystemFont, sans-serif" letter-spacing="1">${tag}</text>
-        </svg>
-      `.trim();
-      return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+    function svgData(svg) {
+      return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg.trim());
     }
 
+    const cookieClickerCover = svgData(`
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+        <defs>
+          <radialGradient id="cg" cx="50%" cy="48%" r="55%">
+            <stop offset="0%" stop-color="#f59e0b"/>
+            <stop offset="65%" stop-color="#92400e"/>
+            <stop offset="100%" stop-color="#291507"/>
+          </radialGradient>
+        </defs>
+        <rect width="400" height="400" fill="url(#cg)"/>
+        <circle cx="200" cy="200" r="128" fill="#d97706" stroke="#78350f" stroke-width="10"/>
+        <circle cx="155" cy="155" r="18" fill="#451a03"/>
+        <circle cx="235" cy="145" r="22" fill="#451a03"/>
+        <circle cx="145" cy="225" r="20" fill="#451a03"/>
+        <circle cx="215" cy="215" r="24" fill="#451a03"/>
+        <circle cx="260" cy="200" r="15" fill="#451a03"/>
+        <circle cx="195" cy="265" r="16" fill="#451a03"/>
+      </svg>
+    `);
+
     const games = [
-      { id: "cookie-clicker", title: "Cookie Clicker", cat: "clicker", catLabel: "Clicker", icon: "🍪", badge: "HOT", cover: makeCover("#451a03", "#92400e", "#f59e0b", "🍪", "CLICK"), path: "games/cookie-clicker/index.html" },
-      { id: "geometry-dash", title: "Geometry Dash", cat: "arcade", catLabel: "Arcade", icon: "🟩", badge: "HOT", cover: makeCover("#064e3b", "#1d4ed8", "#22c55e", "🟩", "DASH"), path: "games/geometry-dash/index.html" },
-      { id: "fnaf", title: "Five Nights at Freddy's", cat: "horror", catLabel: "Horror", icon: "🐻", badge: "HOT", cover: makeCover("#18181b", "#450a0a", "#ef4444", "🐻", "5 AM"), path: "games/fnaf/index.html" },
-      { id: "angry-birds", title: "Angry Birds", cat: "arcade", catLabel: "Arcade", icon: "🎯", badge: "HOT", cover: makeCover("#0369a1", "#7f1d1d", "#fbbf24", "🎯", "SLING"), path: "games/angry-birds/index.html" },
-      { id: "plants-vs-zombies", title: "Plants vs. Zombies", cat: "puzzle", catLabel: "Puzzle", icon: "🌻", badge: "HOT", cover: makeCover("#14532d", "#365314", "#a3e635", "🌻", "DEFEND"), path: "games/plants-vs-zombies/index.html" },
-      { id: "crossy-road", title: "Crossy Road", cat: "arcade", catLabel: "Arcade", icon: "🐔", badge: "NEW", cover: makeCover("#0284c7", "#0f766e", "#38bdf8", "🐔", "3D"), path: "games/crossy-road/index.html" },
-      { id: "happy-wheels", title: "Happy Wheels", cat: "action", catLabel: "Action", icon: "🚲", badge: "HOT", cover: makeCover("#450a0a", "#7c2d12", "#fb7185", "🚲", "STUNT"), path: "games/happy-wheels/index.html" },
-      { id: "moto-x3m", title: "Moto X3M", cat: "racing", catLabel: "Racing", icon: "🏍️", badge: "HOT", cover: makeCover("#431407", "#9a3412", "#fb923c", "🏍️", "MOTO"), path: "games/moto-x3m/index.html" },
-      { id: "drift-boss", title: "Drift Boss", cat: "racing", catLabel: "Racing", icon: "🚗", badge: "HOT", cover: makeCover("#3b0764", "#831843", "#e879f9", "🚗", "DRIFT"), path: "games/drift-boss/index.html" },
-      { id: "stickman-hook", title: "Stickman Hook", cat: "arcade", catLabel: "Arcade", icon: "🪝", badge: "NEW", cover: makeCover("#0c4a6e", "#164e63", "#22d3ee", "🪝", "SWING"), path: "games/stickman-hook/index.html" },
-      { id: "hole-io", title: "Hole.io", cat: "action", catLabel: "Action", icon: "🕳️", badge: "HOT", cover: makeCover("#1e1b4b", "#312e81", "#818cf8", "🕳️", "IO"), path: "games/hole-io/index.html" },
-      { id: "escape-road", title: "Escape Road", cat: "racing", catLabel: "Racing", icon: "🚓", badge: "HOT", cover: makeCover("#172554", "#450a0a", "#60a5fa", "🚓", "CHASE"), path: "games/escape-road/index.html" },
-      { id: "granny", title: "Granny", cat: "horror", catLabel: "Horror", icon: "👵", badge: "HOT", cover: makeCover("#1c1917", "#292524", "#d6d3d1", "👵", "HOUSE"), path: "games/granny/index.html" },
-      { id: "level-devil", title: "Level Devil", cat: "puzzle", catLabel: "Puzzle", icon: "😈", badge: "HOT", cover: makeCover("#4c0519", "#881337", "#fb7185", "😈", "TRICK"), path: "games/level-devil/index.html" },
-      { id: "infinite-craft", title: "Infinite Craft", cat: "puzzle", catLabel: "Puzzle", icon: "♾️", badge: "NEW", cover: makeCover("#1e1b4b", "#0e7490", "#67e8f9", "♾️", "CRAFT"), path: "games/infinite-craft/index.html" },
-      { id: "state-io", title: "State.io", cat: "puzzle", catLabel: "Puzzle", icon: "🗺️", badge: "HOT", cover: makeCover("#134e4a", "#075985", "#2dd4bf", "🗺️", "MAP"), path: "games/state-io/index.html" },
-      { id: "rooftop-snipers", title: "Rooftop Snipers", cat: "action", catLabel: "Action", icon: "🎯", badge: "2P", cover: makeCover("#1e293b", "#4c0519", "#f43f5e", "🎯", "2P"), path: "games/rooftop-snipers/index.html" },
-      { id: "capybara-clicker", title: "Capybara Clicker", cat: "clicker", catLabel: "Clicker", icon: "🦫", badge: "NEW", cover: makeCover("#422006", "#713f12", "#facc15", "🦫", "CAPY"), path: "games/capybara-clicker/index.html" },
-      { id: "johnny-trigger", title: "Johnny Trigger", cat: "action", catLabel: "Action", icon: "🔫", badge: "HOT", cover: makeCover("#18181b", "#450a0a", "#f87171", "🔫", "AIM"), path: "games/johnny-trigger/index.html" },
-      { id: "monster-tracks", title: "Monster Tracks", cat: "racing", catLabel: "Racing", icon: "🚚", badge: "NEW", cover: makeCover("#422006", "#7c2d12", "#fbbf24", "🚚", "4X4"), path: "games/monster-tracks/index.html" },
-      { id: "bitlife", title: "BitLife", cat: "action", catLabel: "Action", icon: "🧬", badge: "HOT", cover: makeCover("#083344", "#064e3b", "#34d399", "🧬", "LIFE"), path: "games/bitlife/index.html" },
-      { id: "snake", title: "Snake", cat: "arcade", catLabel: "Arcade", icon: "🐍", badge: "RETRO", cover: makeCover("#052e16", "#14532d", "#4ade80", "🐍", "RETRO"), path: "games/snake/index.html" }
+      { id: "cookie-clicker", title: "Cookie Clicker", cat: "clicker", catLabel: "Clicker", badge: "HOT", cover: cookieClickerCover, path: "games/cookie-clicker/index.html" },
+      { id: "geometry-dash", title: "Geometry Dash", cat: "arcade", catLabel: "Arcade", badge: "HOT", cover: "E94401CD-F137-4644-B257-471A3613E86E.png", path: "games/geometry-dash/index.html" },
+      { id: "fnaf", title: "Five Nights at Freddy's", cat: "horror", catLabel: "Horror", badge: "HOT", cover: "A22392E5-D78D-42A5-A031-3A88D33B0143.png", path: "games/fnaf/index.html" },
+      { id: "angry-birds", title: "Angry Birds", cat: "arcade", catLabel: "Arcade", badge: "HOT", cover: "BFD5313A-E1BE-4462-8ED3-1F529FAC75EC.png", path: "games/angry-birds/index.html" },
+      { id: "plants-vs-zombies", title: "Plants vs. Zombies", cat: "puzzle", catLabel: "Puzzle", badge: "HOT", cover: "D542B278-0207-4480-AEA1-2D67ABE313F7.png", path: "games/plants-vs-zombies/index.html" },
+      { id: "crossy-road", title: "Crossy Road", cat: "arcade", catLabel: "Arcade", badge: "NEW", cover: "E9D1DA09-788B-4748-8C66-60F47253FE8F.png", path: "games/crossy-road/index.html" },
+      { id: "happy-wheels", title: "Happy Wheels", cat: "action", catLabel: "Action", badge: "HOT", cover: "584CE61B-9926-4D20-BCD2-5C849C54B78E.png", path: "games/happy-wheels/index.html" },
+      { id: "moto-x3m", title: "Moto X3M", cat: "racing", catLabel: "Racing", badge: "HOT", cover: "321659C8-132B-404B-8607-F54336DD7FC6.png", path: "games/moto-x3m/index.html" },
+      { id: "drift-boss", title: "Drift Boss", cat: "racing", catLabel: "Racing", badge: "HOT", cover: "88F49DAA-7916-4BB3-9FE1-95CCA58C1ACC.png", path: "games/drift-boss/index.html" },
+      { id: "stickman-hook", title: "Stickman Hook", cat: "arcade", catLabel: "Arcade", badge: "NEW", cover: "CD90B687-469C-4A7B-BDD1-7AA2FA6619CC.png", path: "games/stickman-hook/index.html" },
+      { id: "hole-io", title: "Hole.io", cat: "action", catLabel: "Action", badge: "HOT", cover: "0D342ED1-4075-4651-A1DF-17AD6B2350AD.png", path: "games/hole-io/index.html" },
+      { id: "escape-road", title: "Escape Road", cat: "racing", catLabel: "Racing", badge: "HOT", cover: "46BA3F1A-DFDB-413C-A8D3-66D7FFC8DB14.png", path: "games/escape-road/index.html" },
+      { id: "granny", title: "Granny", cat: "horror", catLabel: "Horror", badge: "HOT", cover: "E55BB0C1-7937-4F9A-A0B6-E260F4CC0FD8.png", path: "games/granny/index.html" },
+      { id: "level-devil", title: "Level Devil", cat: "puzzle", catLabel: "Puzzle", badge: "HOT", cover: "7DAC1442-1C01-4DC4-B776-3A92FD270D07.png", path: "games/level-devil/index.html" },
+      { id: "infinite-craft", title: "Infinite Craft", cat: "puzzle", catLabel: "Puzzle", badge: "NEW", cover: "04EC7943-3B71-403D-BEAA-9DF219DBCA65.png", path: "games/infinite-craft/index.html" },
+      { id: "state-io", title: "State.io", cat: "puzzle", catLabel: "Puzzle", badge: "HOT", cover: "20B0C92F-B4A8-4F74-8A92-B7424221CE52.png", path: "games/state-io/index.html" },
+      { id: "rooftop-snipers", title: "Rooftop Snipers", cat: "action", catLabel: "Action", badge: "2P", cover: "181D2BC6-C02B-44E4-AA67-2449A06F9DA8.png", path: "games/rooftop-snipers/index.html" },
+      { id: "capybara-clicker", title: "Capybara Clicker", cat: "clicker", catLabel: "Clicker", badge: "NEW", cover: "097BABC7-714A-45A3-9D89-1F0D29A54658.png", path: "games/capybara-clicker/index.html" },
+      { id: "johnny-trigger", title: "Johnny Trigger", cat: "action", catLabel: "Action", badge: "HOT", cover: "2276FBFF-D839-4D68-8DF8-234960A67D9C.png", path: "games/johnny-trigger/index.html" },
+      { id: "monster-tracks", title: "Monster Tracks", cat: "racing", catLabel: "Racing", badge: "NEW", cover: "4DC5B21A-3909-4256-A203-D0D8366DC51C.png", path: "games/monster-tracks/index.html" },
+      { id: "bitlife", title: "BitLife", cat: "action", catLabel: "Action", badge: "HOT", cover: "A8FD5FFA-EE53-4916-AEBC-47F96F80B95D.png", path: "games/bitlife/index.html" },
+      { id: "snake", title: "Snake", cat: "arcade", catLabel: "Arcade", badge: "RETRO", cover: "164A6128-EC99-4623-B07A-C49EDC10DEE1.png", path: "games/snake/index.html" }
     ];
 
     let favorites = JSON.parse(localStorage.getItem('games_favorites') || '[]');
@@ -1083,12 +1122,13 @@
     const searchInput = document.getElementById('search');
     const miniSearchInput = document.getElementById('mini-search');
     const filterChips = document.querySelectorAll('.cls-cat-pill');
+    const favTopBtn = document.getElementById('btn-fav-top');
     const gameCountEl = document.getElementById('game-count');
 
     const modal = document.getElementById('player-modal');
     const modalFrame = document.getElementById('game-frame');
     const modalTitle = document.getElementById('modal-title');
-    const modalIcon = document.getElementById('modal-icon');
+    const modalCover = document.getElementById('modal-cover');
     const modalCat = document.getElementById('modal-cat');
     const btnReload = document.getElementById('btn-reload');
     const btnFullscreen = document.getElementById('btn-fullscreen');
@@ -1146,7 +1186,7 @@
           <button type="button" class="cls-tile-fav ${isFav ? 'is-fav' : ''}" onclick="toggleFavorite('${game.id}', event)" title="Favorit">
             ${isFav ? '♥' : '♡'}
           </button>
-          <div class="cls-tile-caption">
+          <div class="cls-tile-footer">
             <div class="cls-tile-name" title="${game.title}">${game.title}</div>
             <a class="cls-tile-tab" href="${game.path}" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="In neuem Tab öffnen">↗</a>
           </div>
@@ -1158,6 +1198,7 @@
     function selectCategory(cat) {
       currentFilter = cat;
       filterChips.forEach(c => c.classList.toggle('active', c.dataset.cat === cat));
+      favTopBtn.classList.toggle('active-top', cat === 'favorites');
       renderHub();
     }
 
@@ -1182,16 +1223,16 @@
     });
 
     function openRandomGame() {
-      const pool = games.length ? games : [];
-      if (!pool.length) return;
-      const pick = pool[Math.floor(Math.random() * pool.length)];
+      if (!games.length) return;
+      const pick = games[Math.floor(Math.random() * games.length)];
       openGame(pick);
     }
 
     function openGame(game) {
       activeGame = game;
       modalTitle.textContent = game.title;
-      modalIcon.textContent = game.icon;
+      modalCover.src = game.cover;
+      modalCover.alt = game.title;
       modalCat.textContent = game.catLabel;
       modalFrame.src = game.path;
       btnNewtab.href = game.path;
