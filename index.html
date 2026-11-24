@@ -15,7 +15,6 @@
       --wiki-border: #a2a9b1;
       --wiki-text: #202122;
       --wiki-link: #3366cc;
-      --wiki-header-bg: #f8f9fa;
       --wiki-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Nimbus Sans L", Arial, sans-serif;
     }
 
@@ -276,26 +275,26 @@
     .calc-btn.equal:hover { background: #34d399; }
 
     /* ========================================================
-       CLASSROOM GAMES HUB & LIVE CHAT THEME
+       CLASSROOM HUB, LAUNCHER & LIVE CHAT THEME
        ======================================================== */
     body.hub-mode {
-      --cls-bg: #080a0e;
-      --cls-surface: #11141c;
-      --cls-surface-hover: #171b26;
-      --cls-border: rgba(255, 255, 255, 0.08);
-      --cls-border-bright: rgba(255, 255, 255, 0.24);
-      --cls-text: #f3f4f6;
-      --cls-muted: #9ca3af;
-      --cls-blue: #3b82f6;
-      --cls-blue-glow: rgba(59, 130, 246, 0.42);
-      --cls-font: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
-      background-color: var(--cls-bg);
+      --bg: #07090d;
+      --surface: #11151f;
+      --surface-2: #171c29;
+      --border: rgba(255, 255, 255, 0.09);
+      --border-hi: rgba(255, 255, 255, 0.24);
+      --text: #f5f7fb;
+      --muted: #94a3b8;
+      --accent: #3b82f6;
+      --accent-glow: rgba(59, 130, 246, 0.36);
+      --font: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
       background-image:
-        radial-gradient(ellipse 75% 35% at 50% 0%, rgba(59, 130, 246, 0.16), transparent 70%),
-        radial-gradient(circle at 12% 28%, rgba(16, 185, 129, 0.06), transparent 40%),
-        radial-gradient(circle at 88% 24%, rgba(245, 158, 11, 0.06), transparent 40%);
-      color: var(--cls-text);
-      font-family: var(--cls-font);
+        radial-gradient(ellipse 80% 38% at 50% -4%, rgba(59, 130, 246, 0.16), transparent 72%),
+        radial-gradient(circle at 15% 30%, rgba(16, 185, 129, 0.05), transparent 45%),
+        radial-gradient(circle at 85% 26%, rgba(168, 85, 247, 0.05), transparent 45%);
+      color: var(--text);
+      font-family: var(--font);
       user-select: none;
     }
 
@@ -306,21 +305,21 @@
       flex-direction: column;
     }
 
+    /* Topbar */
     .cls-topbar {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(8, 10, 14, 0.9);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--cls-border);
+      background: rgba(7, 9, 13, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
       padding: 10px 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
       flex-wrap: wrap;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
     }
     .cls-left, .cls-right {
       display: flex;
@@ -329,9 +328,9 @@
       flex-wrap: wrap;
     }
     .cls-pill-btn {
-      background: var(--cls-surface);
-      border: 1px solid var(--cls-border);
-      color: #e5e7eb;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: #e2e8f0;
       padding: 6px 12px;
       border-radius: 999px;
       font-size: 0.78rem;
@@ -342,59 +341,35 @@
       gap: 6px;
       transition: all 0.16s ease;
     }
-    .cls-pill-btn:hover, .cls-pill-btn.active-top {
-      background: var(--cls-surface-hover);
-      border-color: rgba(59, 130, 246, 0.55);
+    .cls-pill-btn:hover, .cls-pill-btn.active {
+      background: var(--surface-2);
+      border-color: rgba(96, 165, 250, 0.55);
       color: #fff;
       box-shadow: 0 0 14px rgba(59, 130, 246, 0.22);
     }
     .cls-brand {
-      font-size: 1.22rem;
+      font-size: 1.2rem;
       font-weight: 900;
       letter-spacing: 3px;
-      color: #ffffff;
+      color: #fff;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 2px;
-      text-shadow: 0 0 22px rgba(255, 255, 255, 0.16);
     }
     .cls-brand span.dot {
-      color: var(--cls-blue);
+      color: var(--accent);
       font-size: 1.45rem;
       line-height: 1;
-      text-shadow: 0 0 16px var(--cls-blue-glow);
-    }
-    .cls-mini-search {
-      display: flex;
-      align-items: center;
-      background: var(--cls-surface);
-      border: 1px solid var(--cls-border);
-      border-radius: 999px;
-      padding: 5px 12px;
-      width: 215px;
-      transition: border-color 0.16s, box-shadow 0.16s;
-    }
-    .cls-mini-search:focus-within {
-      border-color: var(--cls-blue);
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.22);
-    }
-    .cls-mini-search input {
-      background: transparent;
-      border: none;
-      color: #fff;
-      font-size: 0.78rem;
-      width: 100%;
-      outline: none;
-      padding-left: 6px;
+      text-shadow: 0 0 16px var(--accent-glow);
     }
     .cls-kbd {
       font-size: 0.68rem;
       font-weight: 600;
-      color: var(--cls-muted);
+      color: var(--muted);
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 2px 7px;
+      padding: 3px 8px;
       border-radius: 999px;
       white-space: nowrap;
     }
@@ -414,48 +389,7 @@
       color: #fff;
       box-shadow: 0 0 16px rgba(239, 68, 68, 0.45);
     }
-
-    /* Browser-Tab-Leiste oben im Classroom-Stil */
-    .cls-tabbar-wrap {
-      max-width: 1440px;
-      width: 100%;
-      margin: 12px auto 0;
-      padding: 0 24px;
-    }
-    .cls-tabbar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-    }
-    .cls-top-tab {
-      background: var(--cls-surface);
-      border: 1px solid var(--cls-border);
-      color: var(--cls-muted);
-      padding: 7px 15px;
-      border-radius: 12px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      white-space: nowrap;
-      transition: all 0.16s ease;
-    }
-    .cls-top-tab:hover {
-      color: #fff;
-      background: var(--cls-surface-hover);
-      border-color: rgba(255, 255, 255, 0.18);
-    }
-    .cls-top-tab.active {
-      background: linear-gradient(135deg, rgba(37, 99, 235, 0.28), rgba(59, 130, 246, 0.16));
-      border-color: rgba(96, 165, 250, 0.65);
-      color: #fff;
-      box-shadow: 0 0 18px rgba(59, 130, 246, 0.28);
-    }
-    .cls-live-dot {
+    .live-dot {
       width: 7px;
       height: 7px;
       border-radius: 50%;
@@ -463,39 +397,192 @@
       box-shadow: 0 0 8px rgba(52, 211, 153, 0.8);
     }
 
+    /* ========================================================
+       STARTSCREEN (SCREENSHOT-INSPIRED CLEAN DARK LAUNCHER)
+       ======================================================== */
+    #start-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      width: 100%;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 36px 20px 64px;
+      text-align: center;
+    }
+    .start-script-logo {
+      font-family: "Snell Roundhand", "Apple Chancery", "Brush Script MT", cursive;
+      font-size: clamp(2.8rem, 6vw, 4.1rem);
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: 1px;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      text-shadow: 0 4px 24px rgba(255, 255, 255, 0.16);
+    }
+    .start-search-wrap {
+      width: 100%;
+      max-width: 560px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #10131a;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 14px;
+      padding: 11px 16px;
+      margin-bottom: 28px;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.55);
+      transition: border-color 0.18s, box-shadow 0.18s;
+    }
+    .start-search-wrap:focus-within {
+      border-color: rgba(255, 255, 255, 0.36);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.65), 0 0 0 3px rgba(59, 130, 246, 0.18);
+    }
+    .start-search-wrap input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #f8fafc;
+      font-size: 0.92rem;
+      outline: none;
+    }
+    .start-search-wrap input::placeholder { color: #64748b; }
+
+    .launcher-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(112px, 142px));
+      gap: 14px;
+      justify-content: center;
+      width: 100%;
+    }
+    @media (max-width: 600px) {
+      .launcher-grid {
+        grid-template-columns: repeat(3, minmax(96px, 1fr));
+        gap: 10px;
+      }
+    }
+
+    .launcher-tile {
+      aspect-ratio: 1 / 1.04;
+      background: #10131a;
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 16px;
+      padding: 14px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      cursor: pointer;
+      color: #e2e8f0;
+      font-size: 0.78rem;
+      font-weight: 600;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+      position: relative;
+    }
+    .launcher-tile:hover {
+      transform: translateY(-3px);
+      background: #161b25;
+      border-color: rgba(255, 255, 255, 0.28);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.55);
+    }
+    .launcher-tile.dashed {
+      background: transparent;
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+      color: #94a3b8;
+    }
+    .launcher-tile.dashed:hover {
+      border-color: rgba(255, 255, 255, 0.42);
+      color: #fff;
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .tile-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+    .tile-remove {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(239, 68, 68, 0.2);
+      border: none;
+      color: #fca5a5;
+      font-size: 0.7rem;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .launcher-tile:hover .tile-remove { display: flex; }
+
+    .start-trending-pill {
+      margin-top: 24px;
+      background: #10131a;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.16s ease;
+    }
+    .start-trending-pill:hover {
+      background: #171c27;
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.26);
+    }
+
+    /* ========================================================
+       GAMES HUB VIEW (Search ONLY Games)
+       ======================================================== */
+    #games-section {
+      display: none;
+      width: 100%;
+      flex: 1;
+    }
     .cls-hero {
       max-width: 780px;
       width: 100%;
-      margin: 22px auto 12px;
+      margin: 24px auto 12px;
       padding: 0 20px;
       text-align: center;
     }
     .cls-hero-title {
-      font-size: clamp(2.1rem, 4.5vw, 2.95rem);
+      font-size: clamp(2rem, 4.4vw, 2.85rem);
       font-weight: 900;
       letter-spacing: 4px;
       color: #ffffff;
-      margin-bottom: 18px;
-      text-shadow: 0 0 28px rgba(59, 130, 246, 0.3);
+      margin-bottom: 16px;
     }
-    .cls-hero-title span.dot {
-      color: var(--cls-blue);
-      text-shadow: 0 0 22px rgba(59, 130, 246, 0.85);
-    }
+    .cls-hero-title span.dot { color: var(--accent); }
     .cls-search-bar {
       display: flex;
       align-items: center;
       gap: 10px;
-      background: var(--cls-surface);
-      border: 1px solid var(--cls-border);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 14px;
       padding: 8px 10px 8px 16px;
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55);
-      transition: border-color 0.18s, box-shadow 0.18s;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5);
     }
     .cls-search-bar:focus-within {
-      border-color: var(--cls-blue);
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.6), 0 0 24px rgba(59, 130, 246, 0.28);
+      border-color: var(--accent);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.6), 0 0 22px rgba(59, 130, 246, 0.24);
     }
     .cls-search-bar input {
       flex: 1;
@@ -516,12 +603,8 @@
       cursor: pointer;
       white-space: nowrap;
       box-shadow: 0 4px 14px rgba(37, 99, 235, 0.42);
-      transition: transform 0.12s, box-shadow 0.15s;
     }
-    .cls-random-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.58);
-    }
+    .cls-random-btn:hover { transform: translateY(-1px); }
 
     .cls-cats {
       max-width: 1440px;
@@ -535,9 +618,9 @@
       flex-wrap: wrap;
     }
     .cls-cat-pill {
-      background: var(--cls-surface);
-      border: 1px solid var(--cls-border);
-      color: var(--cls-muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
       padding: 6px 14px;
       border-radius: 999px;
       font-size: 0.78rem;
@@ -545,24 +628,19 @@
       cursor: pointer;
       transition: all 0.16s ease;
     }
-    .cls-cat-pill:hover {
-      color: #fff;
-      background: var(--cls-surface-hover);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
+    .cls-cat-pill:hover { color: #fff; background: var(--surface-2); }
     .cls-cat-pill.active {
       background: #2563eb;
       border-color: #60a5fa;
       color: #fff;
-      box-shadow: 0 0 18px rgba(37, 99, 235, 0.45);
+      box-shadow: 0 0 18px rgba(37, 99, 235, 0.42);
     }
 
     .cls-main {
-      flex: 1;
       max-width: 1440px;
       width: 100%;
       margin: 0 auto;
-      padding: 20px 24px 56px;
+      padding: 18px 24px 56px;
     }
     .cls-grid {
       display: grid;
@@ -578,15 +656,15 @@
       aspect-ratio: 1 / 1;
       border-radius: 18px;
       overflow: hidden;
-      background: var(--cls-surface);
-      border: 1px solid var(--cls-border);
+      background: var(--surface);
+      border: 1px solid var(--border);
       cursor: pointer;
       box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
       transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s ease, box-shadow 0.22s ease;
     }
     .cls-tile:hover {
       transform: translateY(-5px) scale(1.02);
-      border-color: var(--cls-border-bright);
+      border-color: var(--border-hi);
       box-shadow: 0 16px 34px rgba(0, 0, 0, 0.68), 0 0 24px rgba(59, 130, 246, 0.24);
     }
     .cls-tile img.cover {
@@ -596,9 +674,7 @@
       display: block;
       transition: transform 0.32s ease;
     }
-    .cls-tile:hover img.cover {
-      transform: scale(1.04);
-    }
+    .cls-tile:hover img.cover { transform: scale(1.04); }
 
     .cls-tile-badge {
       position: absolute;
@@ -635,17 +711,13 @@
       cursor: pointer;
       opacity: 0.78;
       z-index: 4;
-      transition: transform 0.15s, opacity 0.15s, background 0.15s, box-shadow 0.15s;
+      transition: transform 0.15s, opacity 0.15s, background 0.15s;
     }
     .cls-tile:hover .cls-tile-fav,
-    .cls-tile-fav.is-fav {
-      opacity: 1;
-    }
-    .cls-tile-fav:hover { transform: scale(1.08); }
+    .cls-tile-fav.is-fav { opacity: 1; }
     .cls-tile-fav.is-fav {
       background: rgba(239, 68, 68, 0.28);
       border-color: rgba(248, 113, 113, 0.65);
-      box-shadow: 0 0 12px rgba(239, 68, 68, 0.35);
     }
 
     .cls-tile-footer {
@@ -663,8 +735,6 @@
       font-size: 0.84rem;
       font-weight: 800;
       color: #ffffff;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
-      line-height: 1.15;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -682,30 +752,29 @@
       justify-content: center;
       text-decoration: none;
       flex-shrink: 0;
-      transition: background 0.15s, color 0.15s;
     }
     .cls-tile-tab:hover {
       background: rgba(59, 130, 246, 0.35);
-      border-color: rgba(96, 165, 250, 0.6);
       color: #fff;
     }
 
-    /* Live Chat View */
+    /* ========================================================
+       LIVE CHAT VIEW
+       ======================================================== */
     #chat-section {
       display: none;
       max-width: 1080px;
       width: 100%;
-      margin: 18px auto 0;
+      margin: 20px auto 0;
       padding: 0 24px 48px;
       user-select: text;
     }
     .chat-shell {
-      background: rgba(17, 20, 28, 0.9);
+      background: rgba(17, 21, 31, 0.92);
       backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.09);
+      border: 1px solid var(--border);
       border-radius: 22px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), 0 0 28px rgba(59, 130, 246, 0.12);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -714,8 +783,8 @@
     }
     .chat-top-meta {
       padding: 12px 18px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(12, 15, 22, 0.75);
+      border-bottom: 1px solid var(--border);
+      background: rgba(11, 14, 21, 0.78);
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -725,7 +794,7 @@
     .chat-channels {
       padding: 10px 18px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-      background: rgba(10, 13, 19, 0.65);
+      background: rgba(9, 12, 18, 0.65);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -735,7 +804,7 @@
     .chat-ch-btn {
       background: #141822;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #9ca3af;
+      color: #94a3b8;
       padding: 5px 13px;
       border-radius: 999px;
       font-size: 0.76rem;
@@ -744,10 +813,7 @@
       white-space: nowrap;
       transition: all 0.15s ease;
     }
-    .chat-ch-btn:hover {
-      color: #fff;
-      background: #1a2030;
-    }
+    .chat-ch-btn:hover { color: #fff; background: #1a2030; }
     .chat-ch-btn.active {
       background: #2563eb;
       border-color: #60a5fa;
@@ -766,9 +832,7 @@
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .msg-anim {
-      animation: msgFadeIn 0.2s ease forwards;
-    }
+    .msg-anim { animation: msgFadeIn 0.2s ease forwards; }
     .chat-quick-bar {
       padding: 8px 18px;
       border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -781,7 +845,7 @@
     }
     .chat-form {
       padding: 12px 18px 14px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid var(--border);
       background: rgba(14, 17, 25, 0.92);
       display: flex;
       flex-wrap: wrap;
@@ -789,29 +853,9 @@
       gap: 8px;
     }
 
-    /* Toast */
-    #toastHost {
-      position: fixed;
-      bottom: 18px;
-      right: 18px;
-      z-index: 1200;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      pointer-events: none;
-    }
-    .cls-toast {
-      background: #151924;
-      border: 1px solid rgba(96, 165, 250, 0.4);
-      color: #fff;
-      padding: 8px 14px;
-      border-radius: 12px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6), 0 0 16px rgba(59, 130, 246, 0.25);
-    }
-
-    /* Theater Player Modal */
+    /* ========================================================
+       IFRAME PLAYER MODAL (GAMES & APPS)
+       ======================================================== */
     .theater-modal {
       position: fixed;
       inset: 0;
@@ -835,7 +879,7 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 36px rgba(59, 130, 246, 0.15);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
     }
     .theater-header {
       background: #0f1422;
@@ -876,6 +920,63 @@
       height: 100%;
       border: none;
       background: #000;
+    }
+
+    /* Bookmark Modal */
+    .bm-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1100;
+      background: rgba(4, 6, 11, 0.8);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .bm-modal.active { display: flex; }
+    .bm-card {
+      background: #121622;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 18px;
+      padding: 20px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+    }
+    .bm-input {
+      width: 100%;
+      background: #090c12;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 10px;
+      padding: 9px 12px;
+      color: #fff;
+      font-size: 0.86rem;
+      margin-bottom: 12px;
+      outline: none;
+    }
+    .bm-input:focus { border-color: var(--accent); }
+
+    /* Toast */
+    #toastHost {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      z-index: 1200;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+    .cls-toast {
+      background: #151924;
+      border: 1px solid rgba(96, 165, 250, 0.4);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
     }
   </style>
 </head>
@@ -1014,30 +1115,24 @@
   </div>
 
   <!-- ==========================================
-       VIEW 2: CLASSROOM GAMES HUB & LIVE CHAT
+       VIEW 2: CLASSROOM START, GAMES & LIVE CHAT
        ========================================== -->
   <div id="view-hub">
     <header class="cls-topbar">
       <div class="cls-left">
-        <button type="button" class="cls-pill-btn" onclick="switchTopTab('games')" title="Alle Spiele anzeigen">☰ Menu</button>
-        <button type="button" class="cls-pill-btn" onclick="switchTopTab('games')">⌂ Home</button>
-        <button type="button" class="cls-pill-btn" id="btn-fav-top" onclick="openFavoritesTab()">♥ Favorites</button>
-        <button type="button" class="cls-pill-btn" id="btn-chat-top" onclick="switchTopTab('chat')">
-          <span class="cls-live-dot"></span>
+        <button type="button" class="cls-pill-btn active" id="nav-start-btn" onclick="showSection('start')">⌂ Start</button>
+        <button type="button" class="cls-pill-btn" id="nav-games-btn" onclick="showSection('games')">🎮 Spiele</button>
+        <button type="button" class="cls-pill-btn" id="nav-chat-btn" onclick="showSection('chat')">
+          <span class="live-dot"></span>
           <span>Live Chat</span>
         </button>
       </div>
 
-      <div class="cls-brand" onclick="switchTopTab('games')">
+      <div class="cls-brand" onclick="showSection('start')">
         CLASSROOM<span class="dot">.</span>
       </div>
 
       <div class="cls-right">
-        <div class="cls-mini-search">
-          <span style="font-size:0.78rem; color:#9ca3af;">🔍</span>
-          <input type="text" id="mini-search" placeholder="Search..." autocomplete="off">
-          <span class="cls-kbd">press /</span>
-        </div>
         <span class="cls-kbd" id="game-count">23 games</span>
         <button type="button" class="cls-panic-btn" onclick="lockToWiki()" title="Sofort zum Taschenrechner (Esc)">
           🔒 Rechner
@@ -1045,26 +1140,39 @@
       </div>
     </header>
 
-    <!-- Obere Tab-Leiste wie im Classroom-Vergleichsbild -->
-    <div class="cls-tabbar-wrap">
-      <div class="cls-tabbar">
-        <button type="button" class="cls-top-tab active" id="tab-btn-games" onclick="switchTopTab('games')">
-          🎮 Games Hub
-        </button>
-        <button type="button" class="cls-top-tab" id="tab-btn-chat" onclick="switchTopTab('chat')">
-          <span class="cls-live-dot"></span>
-          <span>Live Chat</span>
-        </button>
-      </div>
-    </div>
+    <!-- START SCREEN (Screenshot Style) -->
+    <section id="start-section">
+      <div class="start-script-logo">mathkit</div>
 
-    <!-- GAMES VIEW -->
+      <!-- Suchleiste nur für Spiele -->
+      <div class="start-search-wrap">
+        <span style="color:#94a3b8; font-size:0.95rem;">🔍</span>
+        <input
+          type="text"
+          id="start-game-search"
+          placeholder="Spiele suchen..."
+          autocomplete="off"
+          aria-label="Spiele suchen"
+        >
+        <span class="cls-kbd">Spiele</span>
+      </div>
+
+      <!-- App-Kacheln (ohne Film, Anime, Lounge; mit YouTube, ChatGPT, Knowunity, Spotify bei Musik & Spiele) -->
+      <div class="launcher-grid" id="launcher-grid"></div>
+
+      <button type="button" class="start-trending-pill" onclick="openRandomGame()">
+        <span>🔥</span>
+        <span>Trending · Zufallsspiel</span>
+      </button>
+    </section>
+
+    <!-- GAMES HUB (Search ONLY Games) -->
     <div id="games-section">
       <section class="cls-hero">
-        <div class="cls-hero-title">CLASSROOM<span class="dot">.</span></div>
+        <div class="cls-hero-title">SPIELE<span class="dot">.</span></div>
         <div class="cls-search-bar">
-          <span style="color:#9ca3af; font-size:1rem;">🔍</span>
-          <input type="text" id="search" placeholder="Search games..." autocomplete="off">
+          <span style="color:#94a3b8; font-size:1rem;">🔍</span>
+          <input type="text" id="search" placeholder="Nur Spiele suchen..." autocomplete="off">
           <button type="button" class="cls-random-btn" onclick="openRandomGame()">🎲 Random</button>
         </div>
       </section>
@@ -1093,11 +1201,11 @@
             <span style="font-weight:900; letter-spacing:1.5px; color:#fff; font-size:0.95rem;">
               CLASSROOM<span style="color:#3b82f6;">.</span> LIVE CHAT
             </span>
-            <span id="chatOnlineBadge" style="display:inline-flex; align-items:center; gap:6px; background:#141925; border:1px solid rgba(255,255,255,0.08); padding:4px 10px; border-radius:999px; font-size:0.74rem; font-weight:700; color:#e5e7eb;">
-              <span class="cls-live-dot"></span>
+            <span style="display:inline-flex; align-items:center; gap:6px; background:#141925; border:1px solid rgba(255,255,255,0.08); padding:4px 10px; border-radius:999px; font-size:0.74rem; font-weight:700; color:#e5e7eb;">
+              <span class="live-dot"></span>
               <span id="chatOnlineCountText">1 online</span>
             </span>
-            <span id="chatConnBadge" style="display:inline-flex; align-items:center; gap:6px; background:#141925; border:1px solid rgba(255,255,255,0.08); padding:4px 10px; border-radius:999px; font-size:0.72rem; font-weight:600; color:#9ca3af;">
+            <span style="display:inline-flex; align-items:center; gap:6px; background:#141925; border:1px solid rgba(255,255,255,0.08); padding:4px 10px; border-radius:999px; font-size:0.72rem; font-weight:600; color:#94a3b8;">
               <span id="chatConnDot" style="width:7px; height:7px; border-radius:50%; background:#fbbf24;"></span>
               <span id="chatConnText">Verbinde…</span>
             </span>
@@ -1105,7 +1213,7 @@
 
           <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
             <div style="display:flex; align-items:center; gap:4px; background:#0d1017; border:1px solid rgba(255,255,255,0.1); border-radius:999px; padding:3px 6px 3px 10px;">
-              <span style="font-size:0.72rem; color:#9ca3af; font-weight:600;">Als</span>
+              <span style="font-size:0.72rem; color:#94a3b8; font-weight:600;">Als</span>
               <input
                 id="chatNicknameInput"
                 type="text"
@@ -1131,14 +1239,14 @@
 
         <div class="chat-quick-bar">
           <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
-            <span style="font-size:0.7rem; color:#6b7280; font-weight:700;">Quick:</span>
+            <span style="font-size:0.7rem; color:#64748b; font-weight:700;">Quick:</span>
             <button type="button" class="chat-ch-btn chat-quick-btn" data-quick="GG!">GG!</button>
             <button type="button" class="chat-ch-btn chat-quick-btn" data-quick="🔥">🔥</button>
             <button type="button" class="chat-ch-btn chat-quick-btn" data-quick="😂">😂</button>
             <button type="button" class="chat-ch-btn chat-quick-btn" data-quick="👀">👀</button>
             <button type="button" class="chat-ch-btn chat-quick-btn" data-quick="WP">WP</button>
           </div>
-          <span style="font-size:0.7rem; color:#6b7280; white-space:nowrap;">Enter zum Senden · PeerJS &amp; BroadcastChannel</span>
+          <span style="font-size:0.7rem; color:#64748b; white-space:nowrap;">Enter zum Senden · PeerJS &amp; BroadcastChannel</span>
         </div>
 
         <form class="chat-form" id="chatForm">
@@ -1158,16 +1266,29 @@
           <button type="submit" class="cls-random-btn" style="padding:9px 18px;">Senden</button>
         </form>
       </div>
-      <p style="margin-top:10px; font-size:0.72rem; color:#6b7280; text-align:center;">
+      <p style="margin-top:10px; font-size:0.72rem; color:#64748b; text-align:center;">
         Peer-to-Peer WebRTC verbindet Browser direkt ohne zentrale Datenbank (inkl. Koordinator-Failover &amp; Tab-Sync). Strenge Firewalls können direkte Peer-Verbindungen gelegentlich beeinträchtigen.
       </p>
     </section>
   </div>
 
+  <!-- Add Bookmark Modal -->
+  <div class="bm-modal" id="bm-modal">
+    <div class="bm-card">
+      <div style="font-weight:800; font-size:0.95rem; margin-bottom:12px; color:#fff;">Lesezeichen hinzufügen</div>
+      <input type="text" id="bm-name" class="bm-input" placeholder="Name (z. B. Discord)" maxlength="24">
+      <input type="url" id="bm-url" class="bm-input" placeholder="https://example.com">
+      <div style="display:flex; justify-content:flex-end; gap:8px;">
+        <button type="button" class="cls-pill-btn" onclick="closeBookmarkModal()">Abbrechen</button>
+        <button type="button" class="cls-random-btn" style="padding:6px 14px;" onclick="saveBookmark()">Speichern</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Host -->
   <div id="toastHost"></div>
 
-  <!-- Theater Player Modal -->
+  <!-- Theater Player Modal (Games & Apps in iFrame) -->
   <div class="theater-modal" id="player-modal">
     <div class="theater-box">
       <div class="theater-header">
@@ -1208,11 +1329,7 @@
     }
 
     function calcDigit(d) {
-      if (calcVal === "0" || calcVal === "Error") {
-        calcVal = d;
-      } else {
-        calcVal += d;
-      }
+      calcVal = (calcVal === "0" || calcVal === "Error") ? d : calcVal + d;
       updateScreen();
       checkSecret(calcVal);
     }
@@ -1223,10 +1340,8 @@
       } else if (act === '⌫') {
         calcVal = calcVal.length > 1 && calcVal !== "Error" ? calcVal.slice(0, -1) : "0";
       } else if (act === '±') {
-        if (calcVal !== "0" && calcVal !== "Error") {
-          if (/^-?\d+(\.\d+)?$/.test(calcVal)) {
-            calcVal = calcVal.startsWith('-') ? calcVal.slice(1) : '-' + calcVal;
-          }
+        if (calcVal !== "0" && calcVal !== "Error" && /^-?\d+(\.\d+)?$/.test(calcVal)) {
+          calcVal = calcVal.startsWith('-') ? calcVal.slice(1) : '-' + calcVal;
         }
       } else if (act === '.') {
         const lastNum = calcVal.split(/[\+\-\*\/\(\)]/).pop();
@@ -1241,18 +1356,12 @@
 
     function calcCompute() {
       if (checkSecret(calcVal)) return;
-
-      const sanitized = calcVal
-        .replace(/×/g, '*')
-        .replace(/÷/g, '/')
-        .replace(/−/g, '-');
-
+      const sanitized = calcVal.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-');
       if (!/^[0-9+\-*/().\s]+$/.test(sanitized)) {
         calcVal = "Error";
         updateScreen();
         return;
       }
-
       try {
         const res = Function('"use strict";return (' + sanitized + ')')();
         calcVal = String(typeof res === "number" && Number.isFinite(res) ? Math.round(res * 1e8) / 1e8 : "Error");
@@ -1264,25 +1373,16 @@
 
     window.addEventListener("keydown", (e) => {
       const isHub = document.body.classList.contains("hub-mode");
-
       if (isHub) {
         if (e.key === "Escape") {
-          if (document.getElementById("player-modal").classList.contains("active")) {
-            closePlayer();
-          } else {
-            lockToWiki();
-          }
-        }
-        if (e.key === "/" && document.activeElement !== document.getElementById("search") && document.activeElement.tagName !== "INPUT") {
-          e.preventDefault();
-          document.getElementById("search").focus();
+          if (document.getElementById("bm-modal").classList.contains("active")) closeBookmarkModal();
+          else if (document.getElementById("player-modal").classList.contains("active")) closePlayer();
+          else lockToWiki();
         }
         return;
       }
 
-      if (document.activeElement && document.activeElement.tagName === "INPUT") {
-        return;
-      }
+      if (document.activeElement && document.activeElement.tagName === "INPUT") return;
 
       if (/^[0-9]$/.test(e.key)) {
         keyBuffer = (keyBuffer + e.key).slice(-8);
@@ -1302,12 +1402,14 @@
 
     function unlockGamesHub() {
       keyBuffer = "";
-      document.title = "CLASSROOM.";
+      document.title = "mathkit — Start";
       document.body.classList.remove("wiki-mode");
       document.body.classList.add("hub-mode");
       document.getElementById("view-wiki").style.display = "none";
       document.getElementById("view-hub").style.display = "flex";
       sessionStorage.setItem("mathkit_unlocked", "1");
+      showSection("start");
+      renderLauncher();
       renderHub();
     }
 
@@ -1318,7 +1420,8 @@
       document.getElementById("view-hub").style.display = "none";
       document.getElementById("view-wiki").style.display = "block";
       document.getElementById("search").value = "";
-      document.getElementById("mini-search").value = "";
+      document.getElementById("start-game-search").value = "";
+      closeBookmarkModal();
       closePlayer();
       calcVal = "0";
       keyBuffer = "";
@@ -1327,42 +1430,30 @@
     }
 
     // ==========================================
-    // 2. TOP TAB SWITCHER (GAMES / LIVE CHAT)
+    // 2. SECTION NAVIGATION (START / GAMES / CHAT)
     // ==========================================
-    let activeTopTab = "games";
-
-    function switchTopTab(tab) {
-      activeTopTab = tab === "chat" ? "chat" : "games";
+    function showSection(sec) {
+      const startSec = document.getElementById("start-section");
       const gamesSec = document.getElementById("games-section");
       const chatSec = document.getElementById("chat-section");
-      const tabGames = document.getElementById("tab-btn-games");
-      const tabChat = document.getElementById("tab-btn-chat");
-      const chatTopBtn = document.getElementById("btn-chat-top");
+      const bStart = document.getElementById("nav-start-btn");
+      const bGames = document.getElementById("nav-games-btn");
+      const bChat = document.getElementById("nav-chat-btn");
 
-      if (activeTopTab === "chat") {
-        gamesSec.style.display = "none";
-        chatSec.style.display = "block";
-        tabGames.classList.remove("active");
-        tabChat.classList.add("active");
-        chatTopBtn.classList.add("active-top");
-        if (window.ClassroomChat) window.ClassroomChat.onShow();
-      } else {
-        gamesSec.style.display = "block";
-        chatSec.style.display = "none";
-        tabGames.classList.add("active");
-        tabChat.classList.remove("active");
-        chatTopBtn.classList.remove("active-top");
-        renderHub();
-      }
-    }
+      startSec.style.display = sec === "start" ? "flex" : "none";
+      gamesSec.style.display = sec === "games" ? "block" : "none";
+      chatSec.style.display = sec === "chat" ? "block" : "none";
 
-    function openFavoritesTab() {
-      switchTopTab("games");
-      selectCategory("favorites");
+      bStart.classList.toggle("active", sec === "start");
+      bGames.classList.toggle("active", sec === "games");
+      bChat.classList.toggle("active", sec === "chat");
+
+      if (sec === "games") renderHub();
+      if (sec === "chat" && window.ClassroomChat) window.ClassroomChat.onShow();
     }
 
     // ==========================================
-    // 3. GAMES REGISTRY WITH /Icon/ PATHS
+    // 3. GAMES REGISTRY & IFRAME LAUNCHER
     // ==========================================
     function svgData(svg) {
       return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg.trim());
@@ -1385,6 +1476,13 @@
         <circle cx="215" cy="215" r="24" fill="#451a03"/>
         <circle cx="260" cy="200" r="15" fill="#451a03"/>
         <circle cx="195" cy="265" r="16" fill="#451a03"/>
+      </svg>
+    `);
+
+    const appIconSvg = (bg, label, fg = "#fff") => svgData(`
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+        <rect width="120" height="120" rx="28" fill="${bg}"/>
+        <text x="60" y="72" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="38" font-weight="800" fill="${fg}">${label}</text>
       </svg>
     `);
 
@@ -1414,15 +1512,121 @@
       { id: "snake", title: "Snake", cat: "arcade", catLabel: "Arcade", badge: "RETRO", cover: "Icon/IMG_0648.jpeg", fallback: cookieClickerCover, path: "games/snake/index.html" }
     ];
 
+    const LAUNCHER_ITEMS = [
+      { id: "youtube", label: "YouTube", icon: "▶", bg: "rgba(239,68,68,0.18)", color: "#f87171", url: "https://www.youtube.com", cover: appIconSvg("#dc2626", "YT") },
+      { id: "chatgpt", label: "ChatGPT", icon: "✦", bg: "rgba(16,185,129,0.18)", color: "#34d399", url: "https://chatgpt.com", cover: appIconSvg("#059669", "AI") },
+      { id: "knowunity", label: "Knowunity", icon: "📘", bg: "rgba(59,130,246,0.18)", color: "#60a5fa", url: "https://knowunity.de", cover: appIconSvg("#2563eb", "KU") },
+      { id: "spiele", label: "Spiele", icon: "🎮", bg: "rgba(168,85,247,0.18)", color: "#c084fc", action: "games" },
+      { id: "musik", label: "Musik", icon: "♫", bg: "rgba(34,197,94,0.18)", color: "#4ade80", url: "https://open.spotify.com", cover: appIconSvg("#16a34a", "♪") },
+      { id: "chat", label: "Live Chat", icon: "💬", bg: "rgba(14,165,233,0.18)", color: "#38bdf8", action: "chat" }
+    ];
+
+    let customBookmarks = JSON.parse(localStorage.getItem('mathkit_custom_bookmarks') || '[]');
+
+    function renderLauncher() {
+      const gridEl = document.getElementById('launcher-grid');
+      gridEl.innerHTML = '';
+
+      LAUNCHER_ITEMS.forEach(item => {
+        const tile = document.createElement('button');
+        tile.type = 'button';
+        tile.className = 'launcher-tile';
+        tile.innerHTML = `
+          <div class="tile-icon-box" style="background:${item.bg}; color:${item.color};">${item.icon}</div>
+          <span>${item.label}</span>
+        `;
+        tile.onclick = () => {
+          if (item.action === "games") {
+            showSection("games");
+          } else if (item.action === "chat") {
+            showSection("chat");
+          } else if (item.url) {
+            openIframeItem({
+              title: item.label,
+              catLabel: "Web App",
+              cover: item.cover || cookieClickerCover,
+              path: item.url
+            });
+          }
+        };
+        gridEl.appendChild(tile);
+      });
+
+      customBookmarks.forEach((bm, idx) => {
+        const tile = document.createElement('div');
+        tile.className = 'launcher-tile';
+        tile.onclick = () => openIframeItem({
+          title: bm.name,
+          catLabel: "Bookmark",
+          cover: appIconSvg("#334155", bm.name.slice(0, 2).toUpperCase()),
+          path: bm.url
+        });
+        tile.innerHTML = `
+          <button type="button" class="tile-remove" title="Entfernen">✕</button>
+          <div class="tile-icon-box" style="background:rgba(148,163,184,0.14); color:#e2e8f0;">🔗</div>
+          <span style="max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(bm.name)}</span>
+        `;
+        tile.querySelector('.tile-remove').onclick = (e) => {
+          e.stopPropagation();
+          customBookmarks.splice(idx, 1);
+          localStorage.setItem('mathkit_custom_bookmarks', JSON.stringify(customBookmarks));
+          renderLauncher();
+        };
+        gridEl.appendChild(tile);
+      });
+
+      const addTile = document.createElement('button');
+      addTile.type = 'button';
+      addTile.className = 'launcher-tile dashed';
+      addTile.innerHTML = `
+        <div class="tile-icon-box" style="color:#94a3b8;">+</div>
+        <span>Add book...</span>
+      `;
+      addTile.onclick = openBookmarkModal;
+      gridEl.appendChild(addTile);
+    }
+
+    function openBookmarkModal() {
+      document.getElementById('bm-name').value = '';
+      document.getElementById('bm-url').value = '';
+      document.getElementById('bm-modal').classList.add('active');
+    }
+
+    function closeBookmarkModal() {
+      document.getElementById('bm-modal').classList.remove('active');
+    }
+
+    function saveBookmark() {
+      const name = document.getElementById('bm-name').value.trim();
+      let url = document.getElementById('bm-url').value.trim();
+      if (!name || !url) return;
+      if (!/^https?:\/\//i.test(url)) url = "https://" + url;
+      customBookmarks.push({ name, url });
+      localStorage.setItem('mathkit_custom_bookmarks', JSON.stringify(customBookmarks));
+      closeBookmarkModal();
+      renderLauncher();
+    }
+
+    // Start-Suche springt direkt in die Spielesuche
+    const startSearchInput = document.getElementById('start-game-search');
+    const searchInput = document.getElementById('search');
+
+    startSearchInput.addEventListener('input', () => {
+      const val = startSearchInput.value;
+      searchInput.value = val;
+      if (val.trim().length > 0) {
+        showSection('games');
+      }
+      renderHub();
+    });
+
+    // Games Hub State
     let favorites = JSON.parse(localStorage.getItem('games_favorites') || '[]');
     let currentFilter = 'all';
     let activeGame = null;
 
     const grid = document.getElementById('grid');
-    const searchInput = document.getElementById('search');
-    const miniSearchInput = document.getElementById('mini-search');
     const filterChips = document.querySelectorAll('.cls-cat-pill');
-    const favTopBtn = document.getElementById('btn-fav-top');
     const gameCountEl = document.getElementById('game-count');
 
     const modal = document.getElementById('player-modal');
@@ -1442,25 +1646,17 @@
       renderHub();
     }
 
-    function getActiveQuery() {
-      return (searchInput.value || miniSearchInput.value || '').toLowerCase().trim();
-    }
-
     function renderHub() {
-      const q = getActiveQuery();
+      const q = (searchInput.value || '').toLowerCase().trim();
       grid.innerHTML = '';
 
       const list = games.filter(g => {
-        const matchesCategory =
+        const matchesCat =
           currentFilter === 'all' ? true :
           currentFilter === 'favorites' ? favorites.includes(g.id) :
           g.cat === currentFilter;
-
-        const matchesSearch = !q ||
-          g.title.toLowerCase().includes(q) ||
-          g.catLabel.toLowerCase().includes(q);
-
-        return matchesCategory && matchesSearch;
+        const matchesSearch = !q || g.title.toLowerCase().includes(q) || g.catLabel.toLowerCase().includes(q);
+        return matchesCat && matchesSearch;
       });
 
       if (currentFilter === 'all' && !q) {
@@ -1470,7 +1666,7 @@
       gameCountEl.textContent = `${list.length} ${list.length === 1 ? 'game' : 'games'}`;
 
       if (list.length === 0) {
-        grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding:54px 20px; color:#6b7280; font-size:0.95rem;">Keine Spiele gefunden.</div>`;
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding:54px 20px; color:#64748b; font-size:0.95rem;">Keine Spiele gefunden.</div>`;
         return;
       }
 
@@ -1478,7 +1674,7 @@
         const isFav = favorites.includes(game.id);
         const tile = document.createElement('div');
         tile.className = 'cls-tile';
-        tile.onclick = () => openGame(game);
+        tile.onclick = () => openIframeItem(game);
 
         const img = document.createElement('img');
         img.className = 'cover';
@@ -1486,9 +1682,7 @@
         img.alt = game.title;
         img.loading = 'lazy';
         if (game.fallback) {
-          img.onerror = () => {
-            if (img.src !== game.fallback) img.src = game.fallback;
-          };
+          img.onerror = () => { if (img.src !== game.fallback) img.src = game.fallback; };
         }
 
         const badge = document.createElement('span');
@@ -1520,38 +1714,25 @@
     function selectCategory(cat) {
       currentFilter = cat;
       filterChips.forEach(c => c.classList.toggle('active', c.dataset.cat === cat));
-      favTopBtn.classList.toggle('active-top', cat === 'favorites');
       renderHub();
     }
 
-    filterChips.forEach(chip => {
-      chip.addEventListener('click', () => selectCategory(chip.dataset.cat));
-    });
-
-    searchInput.addEventListener('input', () => {
-      miniSearchInput.value = searchInput.value;
-      renderHub();
-    });
-
-    miniSearchInput.addEventListener('input', () => {
-      searchInput.value = miniSearchInput.value;
-      renderHub();
-    });
+    filterChips.forEach(chip => chip.addEventListener('click', () => selectCategory(chip.dataset.cat)));
+    searchInput.addEventListener('input', renderHub);
 
     function openRandomGame() {
       if (!games.length) return;
-      const pick = games[Math.floor(Math.random() * games.length)];
-      openGame(pick);
+      openIframeItem(games[Math.floor(Math.random() * games.length)]);
     }
 
-    function openGame(game) {
-      activeGame = game;
-      modalTitle.textContent = game.title;
-      modalCover.src = game.cover;
-      modalCover.alt = game.title;
-      modalCat.textContent = game.catLabel;
-      modalFrame.src = game.path;
-      btnNewtab.href = game.path;
+    function openIframeItem(item) {
+      activeGame = item;
+      modalTitle.textContent = item.title;
+      modalCover.src = item.cover || cookieClickerCover;
+      modalCover.alt = item.title;
+      modalCat.textContent = item.catLabel || "App";
+      modalFrame.src = item.path;
+      btnNewtab.href = item.path;
       modal.classList.add('active');
     }
 
@@ -1562,21 +1743,21 @@
     }
 
     btnClose.addEventListener('click', closePlayer);
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closePlayer();
-    });
-
-    btnReload.addEventListener('click', () => {
-      if (activeGame) modalFrame.src = activeGame.path;
-    });
-
+    modal.addEventListener('click', (e) => { if (e.target === modal) closePlayer(); });
+    btnReload.addEventListener('click', () => { if (activeGame) modalFrame.src = activeGame.path; });
     btnFullscreen.addEventListener('click', () => {
-      if (!document.fullscreenElement) {
-        modalFrame.requestFullscreen().catch(() => {});
-      } else {
-        document.exitFullscreen().catch(() => {});
-      }
+      if (!document.fullscreenElement) modalFrame.requestFullscreen().catch(() => {});
+      else document.exitFullscreen().catch(() => {});
     });
+
+    function escapeHtml(str) {
+      return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
 
     // ==========================================
     // 4. CLASSROOM LIVE CHAT ENGINE (PEERJS + BC)
@@ -1616,11 +1797,7 @@
       }
 
       function normalizeChannelId(raw) {
-        const slug = String(raw || 'global')
-          .toLowerCase()
-          .trim()
-          .replace(/[^a-z0-9-]+/g, '-')
-          .replace(/^-+|-+$/g, '');
+        const slug = String(raw || 'global').toLowerCase().trim().replace(/[^a-z0-9-]+/g, '-').replace(/^-+|-+$/g, '');
         return CHANNELS.some((c) => c.id === slug) ? slug : 'global';
       }
 
@@ -1633,29 +1810,19 @@
         return {
           id: meta.id,
           onlineUsers: {},
-          messages: [
-            {
-              id: 'sys_init_' + meta.id + '_' + Date.now(),
-              type: 'system',
-              text: `Willkommen in #${meta.label} — ${meta.desc}.`,
-              timestamp: Date.now(),
-            },
-          ],
+          messages: [{
+            id: 'sys_init_' + meta.id + '_' + Date.now(),
+            type: 'system',
+            text: `Willkommen in #${meta.label} — ${meta.desc}.`,
+            timestamp: Date.now(),
+          }],
         };
       }
 
       function loadInitialState() {
         const defaultNick = RANDOM_NICKS[Math.floor(Math.random() * RANDOM_NICKS.length)];
-        const state = {
-          activeChannel: 'global',
-          nickname: defaultNick,
-          channels: {},
-        };
-
-        CHANNELS.forEach((ch) => {
-          state.channels[ch.id] = createEmptyChannelStore(ch.id);
-        });
-
+        const state = { activeChannel: 'global', nickname: defaultNick, channels: {} };
+        CHANNELS.forEach((ch) => { state.channels[ch.id] = createEmptyChannelStore(ch.id); });
         try {
           const saved = sessionStorage.getItem(SESSION_KEY);
           if (saved) {
@@ -1672,7 +1839,6 @@
             }
           }
         } catch (err) {}
-
         return state;
       }
 
@@ -1690,11 +1856,7 @@
 
       let bc = null;
       if (typeof BroadcastChannel !== 'undefined') {
-        try {
-          bc = new BroadcastChannel(BROADCAST_KEY);
-        } catch (err) {
-          bc = null;
-        }
+        try { bc = new BroadcastChannel(BROADCAST_KEY); } catch (err) { bc = null; }
       }
 
       const cEls = {
@@ -1728,18 +1890,12 @@
 
       function saveSession() {
         try {
-          sessionStorage.setItem(
-            SESSION_KEY,
-            JSON.stringify({
-              nickname: appState.nickname,
-              channels: Object.fromEntries(
-                Object.entries(appState.channels).map(([id, store]) => [
-                  id,
-                  { messages: (store.messages || []).slice(-100) },
-                ])
-              ),
-            })
-          );
+          sessionStorage.setItem(SESSION_KEY, JSON.stringify({
+            nickname: appState.nickname,
+            channels: Object.fromEntries(
+              Object.entries(appState.channels).map(([id, store]) => [id, { messages: (store.messages || []).slice(-100) }])
+            ),
+          }));
         } catch (err) {}
       }
 
@@ -1750,22 +1906,14 @@
       function touchSelfOnline(channelId = appState.activeChannel) {
         const store = appState.channels[channelId];
         if (!store) return;
-        store.onlineUsers[CLIENT_ID] = {
-          clientId: CLIENT_ID,
-          nickname: appState.nickname || 'Spieler',
-          tag: 'Live',
-          lastSeen: Date.now(),
-        };
+        store.onlineUsers[CLIENT_ID] = { clientId: CLIENT_ID, nickname: appState.nickname || 'Spieler', tag: 'Live', lastSeen: Date.now() };
       }
 
       function pruneOfflineUsers(store) {
         if (!store || !store.onlineUsers) return;
         const now = Date.now();
         Object.keys(store.onlineUsers).forEach((uid) => {
-          if (uid === CLIENT_ID) return;
-          if (now - (store.onlineUsers[uid]?.lastSeen || 0) > 22000) {
-            delete store.onlineUsers[uid];
-          }
+          if (uid !== CLIENT_ID && now - (store.onlineUsers[uid]?.lastSeen || 0) > 22000) delete store.onlineUsers[uid];
         });
       }
 
@@ -1781,28 +1929,16 @@
       function updateStatus() {
         const store = getCurrentStore();
         pruneOfflineUsers(store);
-        const count = Math.max(1, Object.keys(store.onlineUsers).length);
-        cEls.onlineCountText.textContent = `${count} online`;
-
-        if (net.role === 'host') {
-          cEls.connDot.style.background = '#34d399';
-          cEls.connText.textContent = 'P2P Live · Host';
-        } else if (net.role === 'client') {
-          cEls.connDot.style.background = '#60a5fa';
-          cEls.connText.textContent = 'P2P Live · Global';
-        } else if (net.role === 'fallback') {
-          cEls.connDot.style.background = '#fbbf24';
-          cEls.connText.textContent = 'Tab-Sync aktiv';
-        } else {
-          cEls.connDot.style.background = '#fbbf24';
-          cEls.connText.textContent = 'Verbinde…';
-        }
+        cEls.onlineCountText.textContent = `${Math.max(1, Object.keys(store.onlineUsers).length)} online`;
+        if (net.role === 'host') { cEls.connDot.style.background = '#34d399'; cEls.connText.textContent = 'P2P Live · Host'; }
+        else if (net.role === 'client') { cEls.connDot.style.background = '#60a5fa'; cEls.connText.textContent = 'P2P Live · Global'; }
+        else if (net.role === 'fallback') { cEls.connDot.style.background = '#fbbf24'; cEls.connText.textContent = 'Tab-Sync aktiv'; }
+        else { cEls.connDot.style.background = '#fbbf24'; cEls.connText.textContent = 'Verbinde…'; }
       }
 
       function renderChannels() {
         cEls.channelButtons.innerHTML = '';
         cEls.channelSelect.innerHTML = '';
-
         CHANNELS.forEach((ch) => {
           const isActive = ch.id === appState.activeChannel;
           const btn = document.createElement('button');
@@ -1842,7 +1978,7 @@
           if (msg.type === 'system') {
             return `
               <div class="msg-anim" style="display:flex; justify-content:center; margin:2px 0;">
-                <span style="padding:4px 12px; border-radius:999px; font-size:0.7rem; color:#9ca3af; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06);">
+                <span style="padding:4px 12px; border-radius:999px; font-size:0.7rem; color:#94a3b8; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06);">
                   ${escapeHtml(msg.text)}
                 </span>
               </div>
@@ -1853,9 +1989,9 @@
             <div class="msg-anim" style="display:flex; flex-direction:column; align-items:${isOwn ? 'flex-end' : 'flex-start'};">
               <div style="display:flex; align-items:center; gap:6px; font-size:0.7rem; margin-bottom:3px; padding:0 4px;">
                 <span style="font-weight:700; color:${isOwn ? '#60a5fa' : '#e5e7eb'};">${escapeHtml(msg.nickname || 'Spieler')}</span>
-                <span style="color:#6b7280;">${formatTime(msg.timestamp)}</span>
+                <span style="color:#64748b;">${formatTime(msg.timestamp)}</span>
               </div>
-              <div style="max-width:82%; padding:9px 14px; border-radius:16px; font-size:0.86rem; line-height:1.45; word-break:break-word; background:${isOwn ? '#2563eb' : '#181d2b'}; color:${isOwn ? '#fff' : '#f3f4f6'}; border:${isOwn ? '1px solid #60a5fa' : '1px solid rgba(255,255,255,0.08)'}; box-shadow:${isOwn ? '0 0 18px rgba(37,99,235,0.35)' : '0 4px 12px rgba(0,0,0,0.3)'};">
+              <div style="max-width:82%; padding:9px 14px; border-radius:16px; font-size:0.86rem; line-height:1.45; word-break:break-word; background:${isOwn ? '#2563eb' : '#181d2b'}; color:${isOwn ? '#fff' : '#f3f4f6'}; border:${isOwn ? '1px solid #60a5fa' : '1px solid rgba(255,255,255,0.08)'};">
                 ${escapeHtml(msg.text)}
               </div>
             </div>
@@ -1876,61 +2012,38 @@
 
       function emitEvent(payload) {
         const full = { ...payload, senderId: CLIENT_ID, sentAt: Date.now() };
-        if (bc) {
-          try { bc.postMessage(full); } catch (err) {}
-        }
+        if (bc) { try { bc.postMessage(full); } catch (err) {} }
         if (net.role === 'host') {
-          net.clientConns.forEach((conn) => {
-            if (conn && conn.open) {
-              try { conn.send(full); } catch (err) {}
-            }
-          });
+          net.clientConns.forEach((conn) => { if (conn && conn.open) { try { conn.send(full); } catch (err) {} } });
         } else if (net.role === 'client' && net.hostConn && net.hostConn.open) {
           try { net.hostConn.send(full); } catch (err) {}
         }
       }
 
       function handleIncoming(data, viaConn = null) {
-        if (!data || !data.type) return;
-        if (data.senderId === CLIENT_ID && data.type !== 'SNAPSHOT') return;
+        if (!data || !data.type || (data.senderId === CLIENT_ID && data.type !== 'SNAPSHOT')) return;
         const chId = normalizeChannelId(data.channelId || appState.activeChannel);
         const store = appState.channels[chId];
         if (!store) return;
 
         if (data.type === 'HELLO') {
-          if (data.user && data.user.clientId) {
-            store.onlineUsers[data.user.clientId] = { ...data.user, lastSeen: Date.now() };
-          }
+          if (data.user && data.user.clientId) store.onlineUsers[data.user.clientId] = { ...data.user, lastSeen: Date.now() };
           if (net.role === 'host') {
             touchSelfOnline(chId);
             emitEvent({ type: 'SNAPSHOT', channelId: chId, onlineUsers: store.onlineUsers, messages: (store.messages || []).slice(-60) });
           }
           if (chId === appState.activeChannel) { renderOnlineStrip(); updateStatus(); }
         } else if (data.type === 'SNAPSHOT') {
-          if (data.onlineUsers && typeof data.onlineUsers === 'object') {
-            store.onlineUsers = { ...store.onlineUsers, ...data.onlineUsers };
-            touchSelfOnline(chId);
-          }
-          if (Array.isArray(data.messages)) {
-            data.messages.forEach((m) => appendMessage(chId, m));
-          }
+          if (data.onlineUsers) { store.onlineUsers = { ...store.onlineUsers, ...data.onlineUsers }; touchSelfOnline(chId); }
+          if (Array.isArray(data.messages)) data.messages.forEach((m) => appendMessage(chId, m));
           if (chId === appState.activeChannel) { renderOnlineStrip(); renderMessages(); updateStatus(); saveSession(); }
         } else if (data.type === 'CHAT_MSG') {
           if (data.message && appendMessage(chId, data.message)) {
             if (data.message.senderId) {
-              store.onlineUsers[data.message.senderId] = {
-                clientId: data.message.senderId,
-                nickname: data.message.nickname || 'Spieler',
-                tag: 'Live',
-                lastSeen: Date.now(),
-              };
+              store.onlineUsers[data.message.senderId] = { clientId: data.message.senderId, nickname: data.message.nickname || 'Spieler', tag: 'Live', lastSeen: Date.now() };
             }
             if (net.role === 'host') {
-              net.clientConns.forEach((c) => {
-                if (c !== viaConn && c && c.open) {
-                  try { c.send(data); } catch (err) {}
-                }
-              });
+              net.clientConns.forEach((c) => { if (c !== viaConn && c && c.open) { try { c.send(data); } catch (err) {} } });
             }
             if (chId === appState.activeChannel) { renderMessages(); renderOnlineStrip(); saveSession(); }
           }
@@ -1950,19 +2063,11 @@
       function connectPeer(channelId) {
         if (net.reconnectTimer) clearTimeout(net.reconnectTimer);
         if (net.heartbeatTimer) clearInterval(net.heartbeatTimer);
-        if (net.peer) {
-          try { net.peer.destroy(); } catch (err) {}
-          net.peer = null;
-        }
+        if (net.peer) { try { net.peer.destroy(); } catch (err) {} net.peer = null; }
         net.hostConn = null;
         net.clientConns.clear();
 
-        if (typeof window.Peer === 'undefined') {
-          net.role = 'fallback';
-          updateStatus();
-          return;
-        }
-
+        if (typeof window.Peer === 'undefined') { net.role = 'fallback'; updateStatus(); return; }
         net.role = 'connecting';
         updateStatus();
 
@@ -1983,13 +2088,7 @@
               net.clientConns.set(conn.peer, conn);
               const store = appState.channels[channelId];
               touchSelfOnline(channelId);
-              conn.send({
-                type: 'SNAPSHOT',
-                channelId,
-                onlineUsers: store.onlineUsers,
-                messages: (store.messages || []).slice(-60),
-                senderId: CLIENT_ID,
-              });
+              conn.send({ type: 'SNAPSHOT', channelId, onlineUsers: store.onlineUsers, messages: (store.messages || []).slice(-60), senderId: CLIENT_ID });
               updateStatus();
             });
             conn.on('data', (payload) => handleIncoming(payload, conn));
@@ -2000,17 +2099,13 @@
 
         hostPeer.on('error', (err) => {
           if (net.destroyed || net.peer !== hostPeer) return;
-          const isTaken = err && (err.type === 'unavailable-id' || String(err.message || '').includes('is taken'));
-          if (isTaken) {
+          if (err && (err.type === 'unavailable-id' || String(err.message || '').includes('is taken'))) {
             try { hostPeer.destroy(); } catch (e) {}
             joinAsClient(channelId, coordId);
             return;
           }
           net.role = 'fallback';
           updateStatus();
-          net.reconnectTimer = setTimeout(() => {
-            if (!net.destroyed && appState.activeChannel === channelId) connectPeer(channelId);
-          }, 5000);
         });
       }
 
@@ -2032,35 +2127,21 @@
             touchSelfOnline(channelId);
             updateStatus();
             startHeartbeat(channelId);
-            conn.send({
-              type: 'HELLO',
-              channelId,
-              user: appState.channels[channelId].onlineUsers[CLIENT_ID],
-              senderId: CLIENT_ID,
-            });
+            conn.send({ type: 'HELLO', channelId, user: appState.channels[channelId].onlineUsers[CLIENT_ID], senderId: CLIENT_ID });
           });
-
           conn.on('data', (payload) => handleIncoming(payload, conn));
-
           const onDrop = () => {
             if (net.destroyed || appState.activeChannel !== channelId) return;
             net.hostConn = null;
             net.role = 'connecting';
             updateStatus();
-            net.reconnectTimer = setTimeout(() => {
-              if (!net.destroyed && appState.activeChannel === channelId) connectPeer(channelId);
-            }, 300 + Math.floor(Math.random() * 500));
+            net.reconnectTimer = setTimeout(() => { if (!net.destroyed && appState.activeChannel === channelId) connectPeer(channelId); }, 400);
           };
-
           conn.on('close', onDrop);
           conn.on('error', onDrop);
         });
 
-        clientPeer.on('error', () => {
-          if (net.destroyed || net.peer !== clientPeer) return;
-          net.role = 'fallback';
-          updateStatus();
-        });
+        clientPeer.on('error', () => { if (!net.destroyed && net.peer === clientPeer) { net.role = 'fallback'; updateStatus(); } });
       }
 
       function startHeartbeat(channelId) {
@@ -2081,12 +2162,7 @@
         emitEvent({ type: 'USER_LEFT', channelId: appState.activeChannel, userId: CLIENT_ID });
         appState.activeChannel = targetId;
         const meta = getChannelMeta(targetId);
-        appendMessage(targetId, {
-          id: 'sys_join_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5),
-          type: 'system',
-          text: `${appState.nickname} ist #${meta.label} beigetreten.`,
-          timestamp: Date.now(),
-        });
+        appendMessage(targetId, { id: 'sys_join_' + Date.now(), type: 'system', text: `${appState.nickname} ist #${meta.label} beigetreten.`, timestamp: Date.now() });
         renderChatAll();
         connectPeer(targetId);
       }
@@ -2095,23 +2171,11 @@
         const text = String(rawText || '').trim();
         if (!text) return;
         const targetChannel = normalizeChannelId(cEls.channelSelect.value || appState.activeChannel);
-        if (targetChannel !== appState.activeChannel) {
-          appState.activeChannel = targetChannel;
-          connectPeer(targetChannel);
-        }
+        if (targetChannel !== appState.activeChannel) { appState.activeChannel = targetChannel; connectPeer(targetChannel); }
         const nick = (cEls.nickInput.value || appState.nickname || 'Spieler').trim().slice(0, 20) || 'Spieler';
         appState.nickname = nick;
         touchSelfOnline(targetChannel);
-
-        const msg = {
-          id: 'm_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
-          type: 'chat',
-          senderId: CLIENT_ID,
-          nickname: nick,
-          text,
-          timestamp: Date.now(),
-        };
-
+        const msg = { id: 'm_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6), type: 'chat', senderId: CLIENT_ID, nickname: nick, text, timestamp: Date.now() };
         appendMessage(targetChannel, msg);
         renderChatAll();
         emitEvent({ type: 'CHAT_MSG', channelId: targetChannel, message: msg });
@@ -2127,37 +2191,27 @@
       });
 
       cEls.channelSelect.addEventListener('change', (e) => switchChatChannel(e.target.value));
-
       cEls.nickInput.addEventListener('change', () => {
-        const cleaned = (cEls.nickInput.value || '').trim().slice(0, 20);
-        appState.nickname = cleaned || 'Spieler';
+        appState.nickname = (cEls.nickInput.value || '').trim().slice(0, 20) || 'Spieler';
         touchSelfOnline(appState.activeChannel);
         renderChatAll();
         emitEvent({ type: 'PRESENCE', channelId: appState.activeChannel, user: appState.channels[appState.activeChannel].onlineUsers[CLIENT_ID] });
       });
 
       cEls.randomNickBtn.addEventListener('click', () => {
-        const pick = RANDOM_NICKS[Math.floor(Math.random() * RANDOM_NICKS.length)];
-        appState.nickname = pick + Math.floor(10 + Math.random() * 89);
+        appState.nickname = RANDOM_NICKS[Math.floor(Math.random() * RANDOM_NICKS.length)] + Math.floor(10 + Math.random() * 89);
         touchSelfOnline(appState.activeChannel);
         renderChatAll();
         emitEvent({ type: 'PRESENCE', channelId: appState.activeChannel, user: appState.channels[appState.activeChannel].onlineUsers[CLIENT_ID] });
         showToast(`Neuer Nickname: ${appState.nickname}`);
       });
 
-      document.querySelectorAll('.chat-quick-btn').forEach((btn) => {
-        btn.addEventListener('click', () => sendMessage(btn.dataset.quick || 'GG!'));
-      });
+      document.querySelectorAll('.chat-quick-btn').forEach((btn) => btn.addEventListener('click', () => sendMessage(btn.dataset.quick || 'GG!')));
 
       cEls.clearBtn.addEventListener('click', () => {
         const store = getCurrentStore();
         const meta = getChannelMeta(appState.activeChannel);
-        store.messages = [{
-          id: 'sys_clear_' + Date.now(),
-          type: 'system',
-          text: `Verlauf für #${meta.label} lokal geleert.`,
-          timestamp: Date.now(),
-        }];
+        store.messages = [{ id: 'sys_clear_' + Date.now(), type: 'system', text: `Verlauf für #${meta.label} lokal geleert.`, timestamp: Date.now() }];
         renderMessages();
         saveSession();
       });
@@ -2178,42 +2232,22 @@
         showToast(ok ? `Kanal-Link (#${appState.activeChannel}) kopiert!` : link);
       });
 
-      if (bc) {
-        bc.addEventListener('message', (event) => handleIncoming(event.data, null));
-      }
+      if (bc) bc.addEventListener('message', (event) => handleIncoming(event.data, null));
 
       window.addEventListener('beforeunload', () => {
         net.destroyed = true;
         emitEvent({ type: 'USER_LEFT', channelId: appState.activeChannel, userId: CLIENT_ID });
-        if (net.peer) {
-          try { net.peer.destroy(); } catch (err) {}
-        }
+        if (net.peer) { try { net.peer.destroy(); } catch (err) {} }
       });
 
-      function escapeHtml(str) {
-        return String(str ?? '')
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#039;');
-      }
-
       function formatTime(ts) {
-        try {
-          return new Date(ts || Date.now()).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
-        } catch (err) {
-          return '';
-        }
+        try { return new Date(ts || Date.now()).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }); } catch (err) { return ''; }
       }
 
       window.ClassroomChat = {
         onShow() {
           renderChatAll();
-          if (!net.started) {
-            net.started = true;
-            connectPeer(appState.activeChannel);
-          }
+          if (!net.started) { net.started = true; connectPeer(appState.activeChannel); }
         },
       };
 
