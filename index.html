@@ -305,7 +305,6 @@
       flex-direction: column;
     }
 
-    /* Topbar */
     .cls-topbar {
       position: sticky;
       top: 0;
@@ -398,7 +397,7 @@
     }
 
     /* ========================================================
-       STARTSCREEN (CLEAN DARK LAUNCHER)
+       STARTSCREEN
        ======================================================== */
     #start-section {
       display: flex;
@@ -526,8 +525,15 @@
     }
     .launcher-tile:hover .tile-remove { display: flex; }
 
+    .start-controls-row {
+      margin-top: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
     .start-trending-pill {
-      margin-top: 24px;
       background: #10131a;
       border: 1px solid rgba(255, 255, 255, 0.12);
       color: #cbd5e1;
@@ -545,6 +551,33 @@
       background: #171c27;
       color: #fff;
       border-color: rgba(255, 255, 255, 0.26);
+    }
+    .update-duration-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #10131a;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+    .update-duration-box input {
+      width: 54px;
+      background: #07090d;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 3px 6px;
+      text-align: center;
+      outline: none;
+    }
+    .update-duration-box input:focus {
+      border-color: var(--accent);
     }
 
     /* ========================================================
@@ -566,18 +599,26 @@
     #fake-update-overlay.active {
       display: flex;
     }
+    #fake-update-overlay.hidden-ui .apple-update-center {
+      opacity: 0 !important;
+      pointer-events: none;
+    }
     .apple-update-center {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 44px;
+      gap: 42px;
       transform: translateY(-10px);
+      transition: opacity 0.35s ease;
     }
     .apple-logo-svg {
-      width: 78px;
-      height: 78px;
+      width: 82px;
+      height: 82px;
       fill: #ffffff;
-      transition: opacity 0.45s ease;
+      color: #ffffff;
+    }
+    .apple-logo-svg path {
+      fill: #ffffff !important;
     }
     .apple-progress-track {
       width: 230px;
@@ -585,14 +626,13 @@
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.22);
       overflow: hidden;
-      transition: opacity 0.35s ease;
     }
     .apple-progress-fill {
       width: 0%;
       height: 100%;
       background: #ffffff;
       border-radius: 999px;
-      transition: width 0.25s linear;
+      transition: width 0.2s linear;
     }
     .apple-reboot-flash {
       position: fixed;
@@ -914,7 +954,7 @@
     }
 
     /* ========================================================
-       IFRAME PLAYER MODAL (GAMES & APPS)
+       IFRAME PLAYER MODAL (GAMES)
        ======================================================== */
     .theater-modal {
       position: fixed;
@@ -1216,13 +1256,20 @@
         <span class="cls-kbd">Spiele</span>
       </div>
 
-      <!-- App-Kacheln inkl. Fake Update -->
       <div class="launcher-grid" id="launcher-grid"></div>
 
-      <button type="button" class="start-trending-pill" onclick="openRandomGame()">
-        <span>🔥</span>
-        <span>Trending · Zufallsspiel</span>
-      </button>
+      <div class="start-controls-row">
+        <button type="button" class="start-trending-pill" onclick="openRandomGame()">
+          <span>🔥</span>
+          <span>Trending · Zufallsspiel</span>
+        </button>
+
+        <label class="update-duration-box" title="Dauer des Fake Updates in Sekunden">
+          <span>⏱ Update-Dauer:</span>
+          <input type="number" id="update-duration-input" min="3" max="600" value="15">
+          <span>s</span>
+        </label>
+      </div>
     </section>
 
     <!-- GAMES HUB -->
@@ -1332,12 +1379,15 @@
   </div>
 
   <!-- ==========================================
-       FAKE APPLE UPDATE OVERLAY (SAFE FULLSCREEN)
+       FAKE APPLE UPDATE OVERLAY (CUSTOM SVG)
        ========================================== -->
   <div id="fake-update-overlay" aria-hidden="true">
     <div class="apple-update-center" id="apple-update-center">
-      <svg class="apple-logo-svg" viewBox="0 0 170 170" aria-label="Apple Logo">
-        <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.13-1.9-14.34-6.08-3.69-3.03-7.61-7.82-11.77-14.37-5.08-7.95-9.27-17.18-12.56-27.67-3.29-10.5-4.94-20.52-4.94-30.08 0-11.33 2.84-20.69 8.51-28.08 5.67-7.39 12.76-11.22 21.25-11.49 4.24 0 9.19 1.32 14.84 3.96 5.64 2.64 9.27 4.01 10.89 4.12 1.23 0 5.26-1.58 12.1-4.73 6.83-3.15 12.6-4.47 17.31-3.96 12.96 1.05 22.69 6.17 29.18 15.37-11.61 7.05-17.33 16.92-17.16 29.6.11 9.89 3.79 18.12 11.05 24.69 4.94 4.52 10.67 7.36 17.18 8.52-1.38 4.28-2.92 8.43-4.63 12.46zM119.22 31.01c0 7.72-2.82 14.94-8.46 21.66-6.81 7.95-15.05 12.54-23.98 11.82-.12-.95-.19-1.96-.19-3.03 0-7.4 3.22-15.32 8.93-21.84 2.86-3.29 6.5-6.03 10.92-8.21 4.41-2.18 8.59-3.39 12.54-3.63.16 1.11.24 2.18.24 3.23z"/>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" id="Apple-Logo--Streamline-Logos" class="apple-logo-svg" height="82" width="82" aria-label="Apple Logo">
+        <desc>
+          Apple Logo Streamline Icon: https://streamlinehq.com
+        </desc>
+        <path fill="#ffffff" fill-rule="evenodd" d="M12 5.5c0 -3 1.5 -4.5 4.5 -4.5 0 3 -1.5 4.5 -4.5 4.5Zm-1.327 1.633c-0.642 -0.295 -1.378 -0.633 -2.337 -0.633 -2.129 0 -5.323 2.129 -5.323 6.387C3.013 17.145 5.713 23 8.336 23c0.798 0 1.33 -0.266 1.863 -0.532 0.532 -0.266 1.064 -0.532 1.863 -0.532 0.798 0 1.463 0.266 2.129 0.532 0.665 0.266 1.33 0.532 2.129 0.532 1.835 0 3.707 -2.864 4.666 -6.044 -0.882 -0.32 -2.646 -1.971 -2.646 -4.069 0 -2.706 1.237 -3.923 1.855 -4.33C19.08 7.186 17.528 6.5 16.32 6.5c-0.96 0 -1.864 0.338 -2.654 0.633 -0.613 0.228 -1.157 0.432 -1.604 0.432 -0.448 0 -0.89 -0.204 -1.389 -0.432Z" clip-rule="evenodd" stroke-width="1"></path>
       </svg>
       <div class="apple-progress-track" id="apple-progress-track">
         <div class="apple-progress-fill" id="apple-progress-fill"></div>
@@ -1362,7 +1412,7 @@
   <!-- Toast Host -->
   <div id="toastHost"></div>
 
-  <!-- Theater Player Modal (Games & Apps in iFrame) -->
+  <!-- Theater Player Modal (Games) -->
   <div class="theater-modal" id="player-modal">
     <div class="theater-box">
       <div class="theater-header">
@@ -1448,21 +1498,36 @@
     // ==========================================
     // FAKE APPLE UPDATE & SOFT REBOOT CONTROLLER
     // ==========================================
-    let fakeUpdateTimer = null;
+    const DURATION_KEY = "mathkit_fake_update_seconds";
+    const durationInput = document.getElementById("update-duration-input");
+    const savedDuration = Number(localStorage.getItem(DURATION_KEY) || "15");
+    if (savedDuration >= 3 && savedDuration <= 600) {
+      durationInput.value = String(savedDuration);
+    }
+    durationInput.addEventListener("change", () => {
+      let val = Number(durationInput.value) || 15;
+      if (val < 3) val = 3;
+      if (val > 600) val = 600;
+      durationInput.value = String(val);
+      localStorage.setItem(DURATION_KEY, String(val));
+    });
+
+    let fakeUpdateAnimFrame = null;
     let fakeUpdateActive = false;
 
     function startFakeUpdate() {
       if (fakeUpdateActive) return;
       fakeUpdateActive = true;
 
+      let durationSec = Number(durationInput.value) || 15;
+      if (durationSec < 3) durationSec = 3;
+      if (durationSec > 600) durationSec = 600;
+
       const overlay = document.getElementById("fake-update-overlay");
       const fill = document.getElementById("apple-progress-fill");
-      const track = document.getElementById("apple-progress-track");
-      const center = document.getElementById("apple-update-center");
 
       fill.style.width = "0%";
-      track.style.opacity = "1";
-      center.style.opacity = "1";
+      overlay.classList.remove("hidden-ui");
       overlay.classList.add("active");
       overlay.setAttribute("aria-hidden", "false");
 
@@ -1470,57 +1535,60 @@
         overlay.requestFullscreen().catch(() => {});
       }
 
-      let progress = 0;
-      clearInterval(fakeUpdateTimer);
-      fakeUpdateTimer = setInterval(() => {
-        // Realistische Apple-Update-Geschwindigkeit mit kurzen Pausen
-        const step = progress < 25 ? 1.4 : progress < 72 ? 0.55 : progress < 92 ? 0.9 : 1.6;
-        progress = Math.min(100, progress + step);
-        fill.style.width = progress.toFixed(1) + "%";
+      const startTime = performance.now();
+      const totalMs = durationSec * 1000;
+      cancelAnimationFrame(fakeUpdateAnimFrame);
 
-        if (progress >= 100) {
-          clearInterval(fakeUpdateTimer);
+      function tick(now) {
+        if (!fakeUpdateActive) return;
+        const elapsed = now - startTime;
+        const pct = Math.min(100, (elapsed / totalMs) * 100);
+        fill.style.width = pct.toFixed(2) + "%";
+
+        if (pct >= 100) {
           setTimeout(() => {
             triggerSoftReboot();
-          }, 650);
+          }, 500);
+          return;
         }
-      }, 220);
+        fakeUpdateAnimFrame = requestAnimationFrame(tick);
+      }
+
+      fakeUpdateAnimFrame = requestAnimationFrame(tick);
     }
 
     function triggerSoftReboot() {
       if (!fakeUpdateActive) return;
-      clearInterval(fakeUpdateTimer);
+      cancelAnimationFrame(fakeUpdateAnimFrame);
 
       const overlay = document.getElementById("fake-update-overlay");
-      const center = document.getElementById("apple-update-center");
       const flash = document.getElementById("apple-reboot-flash");
 
-      // Kurzes Ausblenden wie beim Neustart
-      center.style.opacity = "0";
       flash.classList.add("on");
 
       setTimeout(() => {
         if (document.fullscreenElement) {
           document.exitFullscreen().catch(() => {});
         }
-        overlay.classList.remove("active");
+        overlay.classList.remove("active", "hidden-ui");
         overlay.setAttribute("aria-hidden", "true");
         fakeUpdateActive = false;
 
-        // Seite sauber weich neu laden / zurück auf Start bringen
         setTimeout(() => {
           flash.classList.remove("on");
           window.location.reload();
-        }, 420);
-      }, 650);
+        }, 380);
+      }, 550);
     }
 
     window.addEventListener("keydown", (e) => {
-      // Wenn Fake Update aktiv ist: Taste 'x' oder 'X' löst sofort den Soft Reboot aus
       if (fakeUpdateActive) {
         if (e.key === "x" || e.key === "X") {
           e.preventDefault();
           triggerSoftReboot();
+        } else if (e.key === "h" || e.key === "H") {
+          e.preventDefault();
+          document.getElementById("fake-update-overlay").classList.toggle("hidden-ui");
         }
         return;
       }
@@ -1606,7 +1674,7 @@
     }
 
     // ==========================================
-    // 3. GAMES REGISTRY & IFRAME LAUNCHER
+    // 3. GAMES REGISTRY & LAUNCHER (NO YT/CHATGPT/SPOTIFY/KNOWUNITY)
     // ==========================================
     function svgData(svg) {
       return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg.trim());
@@ -1666,11 +1734,7 @@
     ];
 
     const LAUNCHER_ITEMS = [
-      { id: "youtube", label: "YouTube", icon: "▶", bg: "rgba(239,68,68,0.18)", color: "#f87171", url: "https://www.youtube.com", cover: appIconSvg("#dc2626", "YT") },
-      { id: "chatgpt", label: "ChatGPT", icon: "✦", bg: "rgba(16,185,129,0.18)", color: "#34d399", url: "https://chatgpt.com", cover: appIconSvg("#059669", "AI") },
-      { id: "knowunity", label: "Knowunity", icon: "📘", bg: "rgba(59,130,246,0.18)", color: "#60a5fa", url: "https://knowunity.de", cover: appIconSvg("#2563eb", "KU") },
       { id: "spiele", label: "Spiele", icon: "🎮", bg: "rgba(168,85,247,0.18)", color: "#c084fc", action: "games" },
-      { id: "musik", label: "Musik", icon: "♫", bg: "rgba(34,197,94,0.18)", color: "#4ade80", url: "https://open.spotify.com", cover: appIconSvg("#16a34a", "♪") },
       { id: "chat", label: "Live Chat", icon: "💬", bg: "rgba(14,165,233,0.18)", color: "#38bdf8", action: "chat" },
       { id: "fake-update", label: "Fake Update", icon: "", bg: "rgba(255,255,255,0.12)", color: "#ffffff", action: "fake-update" }
     ];
@@ -1696,13 +1760,6 @@
             showSection("chat");
           } else if (item.action === "fake-update") {
             startFakeUpdate();
-          } else if (item.url) {
-            openIframeItem({
-              title: item.label,
-              catLabel: "Web App",
-              cover: item.cover || cookieClickerCover,
-              path: item.url
-            });
           }
         };
         gridEl.appendChild(tile);
